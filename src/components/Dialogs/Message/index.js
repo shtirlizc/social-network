@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-import s from "./Message.module.css";
+import s from "./Message.module.scss";
 
 const Message = (props) => {
   const { message, isMe } = props;
@@ -12,6 +12,7 @@ const Message = (props) => {
   return (
     <div className={classNames(s.messageItem, isMe && s.messageItemMine)}>
       <p className={s.messageText}>{message}</p>
+
       <div className={s.messageAuthor}>
         <img src={userPhoto} alt="" />
       </div>

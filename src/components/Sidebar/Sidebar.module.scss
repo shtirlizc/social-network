@@ -1,0 +1,17 @@
+.root {
+  grid-area: side;
+  background-color: tomato;
+  padding: 20px;
+  min-width: 260px;
+
+  .nav {
+    display: grid;
+    gap: 20px;
+  }
+
+  .friends {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

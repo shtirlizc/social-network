@@ -1,6 +1,6 @@
 import React from "react";
 
-import s from "./Settings.module.css";
+import s from "./Settings.module.scss";
 
 const Settings = () => {
   return <div className={s.root}>Settings</div>;

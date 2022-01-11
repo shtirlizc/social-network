@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import s from "./PageLink.module.css";
+import s from "./PageLink.module.scss";
 
 const PageLink = (props) => {
   const { link, text } = props;

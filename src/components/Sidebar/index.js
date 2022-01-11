@@ -1,8 +1,9 @@
 import React from "react";
+
 import Friend from "./Friend";
 import PageLink from "./PageLink";
 
-import s from "./Sidebar.module.css";
+import s from "./Sidebar.module.scss";
 
 const Sidebar = (props) => {
   const { state } = props;

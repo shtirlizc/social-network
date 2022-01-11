@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ReactComponent as LikeSvg } from "./assets/heart.svg";
-import s from "./Post.module.css";
+import s from "./Post.module.scss";
 
 const Post = (props) => {
   const { message, likes } = props;
