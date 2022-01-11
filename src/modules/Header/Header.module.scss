@@ -1,6 +1,6 @@
 .root {
   grid-area: header;
-  background-color: tomato;
+  background-color: var(--primary);
   padding: 20px;
   position: sticky;
   top: 0;

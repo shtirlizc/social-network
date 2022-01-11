@@ -9,10 +9,10 @@
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color: tomato;
+    color: var(--primary);
 
     .dialogsAvatar {
-      border-color: tomato;
+      border-color: var(--primary);
     }
   }
 

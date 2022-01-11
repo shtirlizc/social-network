@@ -1,9 +1,9 @@
 .root {
-  border: 1px solid #ddd;
-  background-color: #eee;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
   min-height: 120px;
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  color: #555;
+  color: var(--black-color);
 }

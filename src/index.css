@@ -1,3 +1,16 @@
+:root {
+  --primary: tomato;
+  --primary-accent: crimson;
+
+  --white-color: #ffffff;
+  --black-color: #444444;
+
+  --bg-color: #eeeeee;
+  --border-color: #dddddd;
+
+  --transition: 0.2s ease-in-out;
+}
+
 *,
 *::before,
 *::after {

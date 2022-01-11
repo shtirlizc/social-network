@@ -4,7 +4,7 @@
 
   &:not(:last-child) {
     margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
   }
 
@@ -22,7 +22,7 @@
   }
 
   .postText {
-    color: #555;
+    color: var(--black-color);
     font-size: 16px;
     margin: 0 15px;
     flex-grow: 1;
@@ -35,7 +35,7 @@
     align-items: center;
     margin: 0;
     padding-left: 15px;
-    color: #777;
+    color: var(--black-color);
     font-size: 14px;
 
     svg {

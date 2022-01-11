@@ -15,11 +15,11 @@
   .postsTitle {
     font-size: 20px;
     font-weight: 400;
-    color: #555;
+    color: var(--black-color);
   }
 
   .postsFeed {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     margin-top: 20px;
     padding: 20px;
   }
