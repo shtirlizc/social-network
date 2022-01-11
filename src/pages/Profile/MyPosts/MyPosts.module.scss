@@ -1,0 +1,26 @@
+.posts {
+  padding-bottom: 20px;
+
+  .postsNew {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .postsTitle {
+    font-size: 20px;
+    font-weight: 400;
+    color: #555;
+  }
+
+  .postsFeed {
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    padding: 20px;
+  }
+}
