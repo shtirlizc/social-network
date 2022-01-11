@@ -1,0 +1,46 @@
+.postItem {
+  display: flex;
+  align-items: center;
+}
+
+.postItem:not(:last-child) {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.postAvatar {
+  flex: 0 0 60px;
+}
+
+.postAvatar img {
+  display: block;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: yellowgreen;
+}
+
+.postText {
+  color: #555;
+  font-size: 16px;
+  margin: 0 15px;
+  flex-grow: 1;
+}
+
+.postLike {
+  flex: 0 1 60px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0;
+  padding-left: 15px;
+  color: #777;
+  font-size: 14px;
+}
+
+.postLike svg {
+  flex: 0 0 18px;
+  margin-left: 10px;
+}

@@ -1,0 +1,9 @@
+.item {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+}
+
+.active {
+  color: gold;
+}

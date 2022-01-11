@@ -1,0 +1,19 @@
+/* wrapper */
+
+.app-wrapper {
+  display: grid;
+  max-width: 1200px;
+  width: 100%;
+  min-height: 100vh;
+  gap: 20px;
+  margin: auto;
+  grid-template-rows: 100px 1fr;
+  grid-template-columns: 3fr 10fr;
+  grid-template-areas:
+    "header header"
+    "side content";
+}
+
+.app-content {
+  grid-area: content;
+}

@@ -1,0 +1,14 @@
+.root {
+  display: grid;
+  grid-template-columns: 3fr 10fr;
+  gap: 20px;
+}
+
+.dialogs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.messages {
+}

@@ -1,0 +1,13 @@
+.root {
+  grid-area: header;
+  background-color: tomato;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  box-shadow: 4px 4px 15px 0 rgba(0, 0, 0, .3);
+}
+
+.root img {
+  max-width: 100%;
+  max-height: 100%;
+}
