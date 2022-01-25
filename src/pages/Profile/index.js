@@ -1,6 +1,9 @@
 import React from "react";
-import MyPosts from "./MyPosts";
 import ProfileInfo from "./ProfileInfo";
+import NewPost from "./NewPost";
+import MyPosts from "./MyPosts";
+
+import s from "./Profile.module.scss";
 
 const Profile = (props) => {
   const { state } = props;
@@ -9,7 +12,10 @@ const Profile = (props) => {
   return (
     <>
       <ProfileInfo state={info} />
-      <MyPosts posts={posts} />
+      <div className={s.posts}>
+        <NewPost />
+        <MyPosts posts={posts} />
+      </div>
     </>
   );
 };

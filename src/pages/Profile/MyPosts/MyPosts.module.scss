@@ -1,26 +1,11 @@
-.posts {
-  padding-bottom: 20px;
-
-  .postsNew {
-    margin-top: 20px;
-    width: 100%;
-  }
+.postsTitle {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--black-color);
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  .postsTitle {
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--black-color);
-  }
-
-  .postsFeed {
-    border: 1px solid var(--border-color);
-    margin-top: 20px;
-    padding: 20px;
-  }
+.postsFeed {
+  border: 1px solid var(--border-color);
+  margin-top: 20px;
+  padding: 20px;
 }
