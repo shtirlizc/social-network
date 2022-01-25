@@ -67,8 +67,7 @@ const state = {
     info: {
       name: "Marat S.",
       avatar: profilePhoto,
-      bg:
-        "https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg",
+      bg: "https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg",
       birthday: "18th April",
       city: "Ufa",
       education: "USATU",
@@ -110,6 +109,17 @@ const state = {
       { id: 5, link: "settings", text: "Settings" },
     ],
   },
+};
+
+export const addPost = (postText) => {
+  const newPost = {
+    id: 5,
+    message: postText,
+    likesCount: 0,
+  };
+
+  state.profilePage.posts.push(newPost);
+  console.log("###: state", state);
 };
 
 export default state;

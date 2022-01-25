@@ -5,12 +5,13 @@ import TextField from "../../../components/TextField";
 
 import s from "./MyPosts.module.scss";
 
-const NewPost = () => {
+const NewPost = (props) => {
+  const { addPost } = props;
   const postRef = useRef(null);
 
   const handleSubmitPost = (event) => {
     event.preventDefault();
-    console.log("###: ", postRef.current.value);
+    addPost(postRef.current.value);
   };
 
   return (
