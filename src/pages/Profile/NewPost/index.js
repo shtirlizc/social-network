@@ -12,6 +12,7 @@ const NewPost = (props) => {
   const handleSubmitPost = (event) => {
     event.preventDefault();
     addPost(postRef.current.value);
+    postRef.current.value = "";
   };
 
   return (

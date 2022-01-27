@@ -1,3 +1,5 @@
+import { rerenderAllTree } from "../render";
+
 const profilePhoto =
   "https://sun9-47.userapi.com/impg/rTgw7T7n13coqYr4RBTihjxnUCwjyqdyVk7_jQ/MsfZ_BSiDGc.jpg?size=519x400&quality=96&proxy=1&sign=f1c988783fd5cce0d899203b5c958130&type=album";
 
@@ -119,7 +121,8 @@ export const addPost = (postText) => {
   };
 
   state.profilePage.posts.push(newPost);
-  console.log("###: state", state);
+
+  rerenderAllTree(state, addPost);
 };
 
 export default state;
