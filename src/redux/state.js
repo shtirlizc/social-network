@@ -66,6 +66,7 @@ const state = {
         likesCount: 11,
       },
     ],
+    newPostText: "",
     info: {
       name: "Marat S.",
       avatar: profilePhoto,
@@ -121,8 +122,19 @@ export const addPost = (postText) => {
   };
 
   state.profilePage.posts.push(newPost);
+  state.profilePage.newPostText = "";
 
-  rerenderAllTree(state, addPost);
+  updateTree();
 };
+
+export const typeNewPost = (postText) => {
+  state.profilePage.newPostText = postText;
+
+  updateTree();
+};
+
+function updateTree() {
+  rerenderAllTree(state, addPost, typeNewPost);
+}
 
 export default state;

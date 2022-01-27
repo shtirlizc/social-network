@@ -12,7 +12,7 @@ import Settings from "./pages/Settings";
 import "./App.css";
 
 const App = (props) => {
-  const { state, addPost } = props;
+  const { state, addPost, typeNewPost } = props;
   const { profilePage, dialogsPage, sidebar } = state;
 
   return (
@@ -22,7 +22,12 @@ const App = (props) => {
         <Sidebar state={sidebar} />
 
         <main className="app-content">
-          <Route path="/profile" render={() => <Profile state={profilePage} addPost={addPost} />} />
+          <Route
+            path="/profile"
+            render={() => (
+              <Profile state={profilePage} typeNewPost={typeNewPost} addPost={addPost} />
+            )}
+          />
           <Route path="/dialogs" render={() => <Dialogs state={dialogsPage} />} />
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />

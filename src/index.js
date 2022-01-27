@@ -1,4 +1,4 @@
-import state, { addPost } from "./redux/state";
+import state, { addPost, typeNewPost } from "./redux/state";
 import { rerenderAllTree } from "./render";
 
-rerenderAllTree(state, addPost);
+rerenderAllTree(state, addPost, typeNewPost);

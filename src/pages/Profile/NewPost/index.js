@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 import Button from "../../../components/Button";
 import TextField from "../../../components/TextField";
@@ -6,13 +6,15 @@ import TextField from "../../../components/TextField";
 import s from "./MyPosts.module.scss";
 
 const NewPost = (props) => {
-  const { addPost } = props;
-  const postRef = useRef(null);
+  const { newPostText, typeNewPost, addPost } = props;
 
   const handleSubmitPost = (event) => {
     event.preventDefault();
-    addPost(postRef.current.value);
-    postRef.current.value = "";
+    addPost(newPostText);
+  };
+
+  const handleType = (event) => {
+    typeNewPost(event.target.value);
   };
 
   return (
@@ -22,8 +24,9 @@ const NewPost = (props) => {
           name="message"
           id="message"
           placeholder="Your news..."
+          value={newPostText}
+          onChange={handleType}
           isTextArea
-          refValue={postRef}
         />
         <Button type="submit">Send</Button>
       </form>
