@@ -5,10 +5,16 @@ import App from "./App";
 
 import "./index.css";
 
-export const rerenderAllTree = (state, addPost, typeNewPost) => {
+export const rerenderAllTree = (state, addPost, typeNewPost, addMessage, typeNewMessage) => {
   ReactDOM.render(
     <React.StrictMode>
-      <App state={state} addPost={addPost} typeNewPost={typeNewPost} />
+      <App
+        state={state}
+        addPost={addPost}
+        typeNewPost={typeNewPost}
+        addMessage={addMessage}
+        typeNewMessage={typeNewMessage}
+      />
     </React.StrictMode>,
     document.getElementById("root"),
   );

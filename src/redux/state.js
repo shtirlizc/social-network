@@ -2,7 +2,6 @@ import { rerenderAllTree } from "../render";
 
 const profilePhoto =
   "https://sun9-47.userapi.com/impg/rTgw7T7n13coqYr4RBTihjxnUCwjyqdyVk7_jQ/MsfZ_BSiDGc.jpg?size=519x400&quality=96&proxy=1&sign=f1c988783fd5cce0d899203b5c958130&type=album";
-
 const friends = [
   {
     id: 1,
@@ -101,6 +100,7 @@ const state = {
         isMineMessage: false,
       },
     ],
+    newMessageText: "",
   },
   sidebar: {
     friends,
@@ -114,10 +114,10 @@ const state = {
   },
 };
 
-export const addPost = (postText) => {
+export const addPost = () => {
   const newPost = {
     id: 5,
-    message: postText,
+    message: state.profilePage.newPostText,
     likesCount: 0,
   };
 
@@ -126,15 +126,32 @@ export const addPost = (postText) => {
 
   updateTree();
 };
-
 export const typeNewPost = (postText) => {
   state.profilePage.newPostText = postText;
 
   updateTree();
 };
 
+export const addMessage = () => {
+  const newMessage = {
+    id: 5,
+    message: state.dialogsPage.newMessageText,
+    isMineMessage: true,
+  };
+
+  state.dialogsPage.messages.push(newMessage);
+  state.dialogsPage.newMessageText = "";
+
+  updateTree();
+};
+export const typeNewMessage = (messageText) => {
+  state.dialogsPage.newMessageText = messageText;
+
+  updateTree();
+};
+
 function updateTree() {
-  rerenderAllTree(state, addPost, typeNewPost);
+  rerenderAllTree(state, addPost, typeNewPost, addMessage, typeNewMessage);
 }
 
 export default state;

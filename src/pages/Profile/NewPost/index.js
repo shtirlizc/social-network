@@ -10,7 +10,7 @@ const NewPost = (props) => {
 
   const handleSubmitPost = (event) => {
     event.preventDefault();
-    addPost(newPostText);
+    addPost();
   };
 
   const handleType = (event) => {
@@ -19,7 +19,7 @@ const NewPost = (props) => {
 
   return (
     <div className={s.root}>
-      <form action="" className={s.form} onSubmit={handleSubmitPost}>
+      <form className={s.form} onSubmit={handleSubmitPost}>
         <TextField
           name="message"
           id="message"

@@ -1,20 +1,23 @@
-import React, { useRef } from "react";
+import React from "react";
 
 import DialogItem from "./DialogItem";
 import Message from "./Message";
-
-import s from "./Dialogs.module.scss";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 
+import s from "./Dialogs.module.scss";
+
 const Dialogs = (props) => {
-  const { state } = props;
-  const { dialogs, messages } = state;
-  const messageRef = useRef(null);
+  const { state, addMessage, typeNewMessage } = props;
+  const { dialogs, messages, newMessageText } = state;
 
   const handleSubmitMessage = (event) => {
     event.preventDefault();
-    console.log("###: ", messageRef.current.value);
+    addMessage();
+  };
+
+  const handleUpdateNewMessage = (event) => {
+    typeNewMessage(event.target.value);
   };
 
   const dialogsElements = dialogs.map(({ id, name, avatar }) => (
@@ -28,15 +31,16 @@ const Dialogs = (props) => {
     <div className={s.root}>
       <div className={s.dialogs}>{dialogsElements}</div>
       <div className={s.messages}>
-        <div className={s.messagesList}>{messagesElements}</div>
+        <div>{messagesElements}</div>
 
-        <form action="" className={s.messagesForm} onSubmit={handleSubmitMessage}>
+        <form className={s.messagesForm} onSubmit={handleSubmitMessage}>
           <TextField
             name="message"
             id="message"
             placeholder="Your message..."
+            value={newMessageText}
+            onChange={handleUpdateNewMessage}
             isTextArea
-            refValue={messageRef}
           />
           <Button type="submit">Send</Button>
         </form>
