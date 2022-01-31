@@ -1,8 +1,8 @@
 import s from "./Button.module.scss";
 
-const Button = ({ type = "button", onClick, children }) => {
+const Button = ({ type = "button", disabled = false, onClick, children }) => {
   return (
-    <button type={type} className={s.root} onClick={onClick}>
+    <button type={type} className={s.root} disabled={disabled} onClick={onClick}>
       {children}
     </button>
   );

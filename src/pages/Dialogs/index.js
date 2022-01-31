@@ -42,7 +42,9 @@ const Dialogs = (props) => {
             onChange={handleUpdateNewMessage}
             isTextArea
           />
-          <Button type="submit">Send</Button>
+          <Button type="submit" disabled={!newMessageText}>
+            Send
+          </Button>
         </form>
       </div>
     </div>

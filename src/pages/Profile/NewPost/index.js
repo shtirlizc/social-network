@@ -28,7 +28,9 @@ const NewPost = (props) => {
           onChange={handleType}
           isTextArea
         />
-        <Button type="submit">Send</Button>
+        <Button type="submit" disabled={!newPostText}>
+          Send
+        </Button>
       </form>
     </div>
   );
