@@ -6,10 +6,9 @@ import PageLink from "./PageLink";
 import s from "./Sidebar.module.scss";
 
 const Sidebar = (props) => {
-  const { state } = props;
-  const { friends, navigation } = state;
+  const { sidebar, friends } = props;
 
-  const navigationElements = navigation.map(({ id, link, text }) => (
+  const navigationElements = sidebar.map(({ id, link, text }) => (
     <PageLink key={id} id={id} link={link} text={text} />
   ));
   const friendsElements = friends.map(({ id, name, avatar }) => (

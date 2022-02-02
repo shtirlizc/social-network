@@ -8,8 +8,8 @@ import Button from "../../components/Button";
 import s from "./Dialogs.module.scss";
 
 const Dialogs = (props) => {
-  const { state, addMessage, typeNewMessage } = props;
-  const { dialogs, messages, newMessageText } = state;
+  const { state, friends, addMessage, typeNewMessage } = props;
+  const { messages, newMessageText } = state;
 
   const handleSubmitMessage = (event) => {
     event.preventDefault();
@@ -20,7 +20,7 @@ const Dialogs = (props) => {
     typeNewMessage(event.target.value);
   };
 
-  const dialogsElements = dialogs.map(({ id, name, avatar }) => (
+  const dialogsElements = friends.map(({ id, name, avatar }) => (
     <DialogItem key={id} id={id} name={name} avatar={avatar} />
   ));
   const messagesElements = messages.map(({ id, message, isMineMessage }) => (

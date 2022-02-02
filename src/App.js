@@ -13,13 +13,13 @@ import "./App.css";
 
 const App = (props) => {
   const { state, addPost, typeNewPost, addMessage, typeNewMessage } = props;
-  const { profilePage, dialogsPage, sidebar } = state;
+  const { profilePage, dialogsPage, sidebar, friends } = state;
 
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
-        <Sidebar state={sidebar} />
+        <Sidebar sidebar={sidebar} friends={friends} />
 
         <main className="app-content">
           <Route
@@ -33,6 +33,7 @@ const App = (props) => {
             render={() => (
               <Dialogs
                 state={dialogsPage}
+                friends={friends}
                 addMessage={addMessage}
                 typeNewMessage={typeNewMessage}
               />
