@@ -1,7 +1,7 @@
-export const ADD_POST = "ADD_POST";
-export const TYPE_NEW_POST = "TYPE_NEW_POST";
-export const ADD_MESSAGE = "ADD_MESSAGE";
-export const TYPE_NEW_MESSAGE = "TYPE_NEW_MESSAGE";
+const ADD_POST = "ADD_POST";
+const TYPE_NEW_POST = "TYPE_NEW_POST";
+const ADD_MESSAGE = "ADD_MESSAGE";
+const TYPE_NEW_MESSAGE = "TYPE_NEW_MESSAGE";
 
 const store = {
   _state: {
@@ -123,7 +123,7 @@ const store = {
   },
 
   dispatch(action) {
-    const { type } = action;
+    const { type, payload } = action;
 
     switch (type) {
       case ADD_POST:
@@ -140,7 +140,7 @@ const store = {
         break;
 
       case TYPE_NEW_POST:
-        this._state.profilePage.newPostText = action.post;
+        this._state.profilePage.newPostText = payload.post;
 
         this._callSubscriber(this);
         break;
@@ -159,7 +159,7 @@ const store = {
         break;
 
       case TYPE_NEW_MESSAGE:
-        this._state.dialogsPage.newMessageText = action.message;
+        this._state.dialogsPage.newMessageText = payload.message;
 
         this._callSubscriber(this);
         break;
@@ -169,5 +169,24 @@ const store = {
     }
   },
 };
+
+export const addPostActionCreator = () => ({
+  type: ADD_POST,
+});
+export const typeNewPostActionCreator = (post) => ({
+  type: TYPE_NEW_POST,
+  payload: {
+    post,
+  },
+});
+export const addMessageActionCreator = () => ({
+  type: ADD_MESSAGE,
+});
+export const typeNewMessageActionCreator = (message) => ({
+  type: TYPE_NEW_MESSAGE,
+  payload: {
+    message,
+  },
+});
 
 export default store;

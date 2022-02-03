@@ -4,7 +4,7 @@ import DialogItem from "./DialogItem";
 import Message from "./Message";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
-import { ADD_MESSAGE, TYPE_NEW_MESSAGE } from "../../redux/store";
+import { addMessageActionCreator, typeNewMessageActionCreator } from "../../redux/store";
 
 import s from "./Dialogs.module.scss";
 
@@ -14,11 +14,11 @@ const Dialogs = (props) => {
 
   const handleSubmitMessage = (event) => {
     event.preventDefault();
-    dispatch({ type: ADD_MESSAGE });
+    dispatch(addMessageActionCreator());
   };
 
   const handleUpdateNewMessage = (event) => {
-    dispatch({ type: TYPE_NEW_MESSAGE, message: event.target.value });
+    dispatch(typeNewMessageActionCreator(event.target.value));
   };
 
   const dialogsElements = friends.map(({ id, name, avatar }) => (
