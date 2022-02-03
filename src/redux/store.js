@@ -1,3 +1,8 @@
+export const ADD_POST = "ADD_POST";
+export const TYPE_NEW_POST = "TYPE_NEW_POST";
+export const ADD_MESSAGE = "ADD_MESSAGE";
+export const TYPE_NEW_MESSAGE = "TYPE_NEW_MESSAGE";
+
 const store = {
   _state: {
     profilePage: {
@@ -106,50 +111,62 @@ const store = {
       },
     ],
   },
-  getState() {
-    return this._state;
-  },
-
-  addPost() {
-    const newPost = {
-      id: 5,
-      message: this._state.profilePage.newPostText,
-      likesCount: 0,
-    };
-
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = "";
-
-    this._callSubscriber(this);
-  },
-  typeNewPost(postText) {
-    this._state.profilePage.newPostText = postText;
-
-    this._callSubscriber(this);
-  },
-  addMessage() {
-    const newMessage = {
-      id: 5,
-      message: this._state.dialogsPage.newMessageText,
-      isMineMessage: true,
-    };
-
-    this._state.dialogsPage.messages.push(newMessage);
-    this._state.dialogsPage.newMessageText = "";
-
-    this._callSubscriber(this);
-  },
-  typeNewMessage(messageText) {
-    this._state.dialogsPage.newMessageText = messageText;
-
-    this._callSubscriber(this);
-  },
-
   _callSubscriber() {
     console.log("###: State has been changed");
   },
+
+  getState() {
+    return this._state;
+  },
   subscribe(observer) {
     this._callSubscriber = observer;
+  },
+
+  dispatch(action) {
+    const { type } = action;
+
+    switch (type) {
+      case ADD_POST:
+        const newPost = {
+          id: 5,
+          message: this._state.profilePage.newPostText,
+          likesCount: 0,
+        };
+
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = "";
+
+        this._callSubscriber(this);
+        break;
+
+      case TYPE_NEW_POST:
+        this._state.profilePage.newPostText = action.post;
+
+        this._callSubscriber(this);
+        break;
+
+      case ADD_MESSAGE:
+        const newMessage = {
+          id: 5,
+          message: this._state.dialogsPage.newMessageText,
+          isMineMessage: true,
+        };
+
+        this._state.dialogsPage.messages.push(newMessage);
+        this._state.dialogsPage.newMessageText = "";
+
+        this._callSubscriber(this);
+        break;
+
+      case TYPE_NEW_MESSAGE:
+        this._state.dialogsPage.newMessageText = action.message;
+
+        this._callSubscriber(this);
+        break;
+
+      default:
+        break;
+    }
   },
 };
 

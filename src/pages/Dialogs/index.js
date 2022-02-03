@@ -4,20 +4,21 @@ import DialogItem from "./DialogItem";
 import Message from "./Message";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
+import { ADD_MESSAGE, TYPE_NEW_MESSAGE } from "../../redux/store";
 
 import s from "./Dialogs.module.scss";
 
 const Dialogs = (props) => {
-  const { state, friends, addMessage, typeNewMessage } = props;
+  const { state, friends, dispatch } = props;
   const { messages, newMessageText } = state;
 
   const handleSubmitMessage = (event) => {
     event.preventDefault();
-    addMessage();
+    dispatch({ type: ADD_MESSAGE });
   };
 
   const handleUpdateNewMessage = (event) => {
-    typeNewMessage(event.target.value);
+    dispatch({ type: TYPE_NEW_MESSAGE, message: event.target.value });
   };
 
   const dialogsElements = friends.map(({ id, name, avatar }) => (

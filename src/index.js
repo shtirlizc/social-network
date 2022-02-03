@@ -11,13 +11,7 @@ const renderAllTree = (store) => {
 
   ReactDOM.render(
     <React.StrictMode>
-      <App
-        state={state}
-        addPost={store.addPost.bind(store)}
-        typeNewPost={store.typeNewPost.bind(store)}
-        addMessage={store.addMessage.bind(store)}
-        typeNewMessage={store.typeNewMessage.bind(store)}
-      />
+      <App state={state} dispatch={store.dispatch.bind(store)} />
     </React.StrictMode>,
     document.getElementById("root"),
   );

@@ -12,7 +12,7 @@ import Settings from "./pages/Settings";
 import "./App.css";
 
 const App = (props) => {
-  const { state, addPost, typeNewPost, addMessage, typeNewMessage } = props;
+  const { state, dispatch } = props;
   const { profilePage, dialogsPage, sidebar, friends } = state;
 
   return (
@@ -24,20 +24,11 @@ const App = (props) => {
         <main className="app-content">
           <Route
             path="/profile"
-            render={() => (
-              <Profile state={profilePage} typeNewPost={typeNewPost} addPost={addPost} />
-            )}
+            render={() => <Profile state={profilePage} dispatch={dispatch} />}
           />
           <Route
             path="/dialogs"
-            render={() => (
-              <Dialogs
-                state={dialogsPage}
-                friends={friends}
-                addMessage={addMessage}
-                typeNewMessage={typeNewMessage}
-              />
-            )}
+            render={() => <Dialogs state={dialogsPage} friends={friends} dispatch={dispatch} />}
           />
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />

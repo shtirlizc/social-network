@@ -6,14 +6,14 @@ import MyPosts from "./MyPosts";
 import s from "./Profile.module.scss";
 
 const Profile = (props) => {
-  const { state, addPost, typeNewPost } = props;
+  const { state, dispatch } = props;
   const { posts, newPostText, info } = state;
 
   return (
     <>
       <ProfileInfo state={info} />
       <div className={s.posts}>
-        <NewPost newPostText={newPostText} typeNewPost={typeNewPost} addPost={addPost} />
+        <NewPost newPostText={newPostText} dispatch={dispatch} />
         <MyPosts posts={posts} />
       </div>
     </>

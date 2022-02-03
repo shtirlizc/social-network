@@ -2,19 +2,20 @@ import React from "react";
 
 import Button from "../../../components/Button";
 import TextField from "../../../components/TextField";
+import { ADD_POST, TYPE_NEW_POST } from "../../../redux/store";
 
 import s from "./MyPosts.module.scss";
 
 const NewPost = (props) => {
-  const { newPostText, typeNewPost, addPost } = props;
+  const { newPostText, dispatch } = props;
 
   const handleSubmitPost = (event) => {
     event.preventDefault();
-    addPost();
+    dispatch({ type: ADD_POST });
   };
 
   const handleType = (event) => {
-    typeNewPost(event.target.value);
+    dispatch({ type: TYPE_NEW_POST, post: event.target.value });
   };
 
   return (
