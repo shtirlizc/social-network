@@ -4,7 +4,7 @@ import DialogItem from "./DialogItem";
 import Message from "./Message";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
-import { addMessageActionCreator, typeNewMessageActionCreator } from "../../redux/store";
+import { addMessageActionCreator, typeNewMessageActionCreator } from "../../redux/reducers/dialogs";
 
 import s from "./Dialogs.module.scss";
 

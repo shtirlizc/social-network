@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "../../../components/Button";
 import TextField from "../../../components/TextField";
-import { addPostActionCreator, typeNewPostActionCreator } from "../../../redux/store";
+import { addPostActionCreator, typeNewPostActionCreator } from "../../../redux/reducers/profile";
 
 import s from "./MyPosts.module.scss";
 

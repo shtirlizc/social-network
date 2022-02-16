@@ -1,7 +1,7 @@
-const ADD_POST = "ADD_POST";
-const TYPE_NEW_POST = "TYPE_NEW_POST";
-const ADD_MESSAGE = "ADD_MESSAGE";
-const TYPE_NEW_MESSAGE = "TYPE_NEW_MESSAGE";
+import dialogsReducer from "./reducers/dialogs";
+import profileReducer from "./reducers/profile";
+import sidebarReducer from "./reducers/sidebar";
+import friendsReducer from "./reducers/friends";
 
 const store = {
   _state: {
@@ -123,70 +123,13 @@ const store = {
   },
 
   dispatch(action) {
-    const { type, payload } = action;
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+    this._state.friends = friendsReducer(this._state.friends, action);
 
-    switch (type) {
-      case ADD_POST:
-        const newPost = {
-          id: 5,
-          message: this._state.profilePage.newPostText,
-          likesCount: 0,
-        };
-
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = "";
-
-        this._callSubscriber(this);
-        break;
-
-      case TYPE_NEW_POST:
-        this._state.profilePage.newPostText = payload.post;
-
-        this._callSubscriber(this);
-        break;
-
-      case ADD_MESSAGE:
-        const newMessage = {
-          id: 5,
-          message: this._state.dialogsPage.newMessageText,
-          isMineMessage: true,
-        };
-
-        this._state.dialogsPage.messages.push(newMessage);
-        this._state.dialogsPage.newMessageText = "";
-
-        this._callSubscriber(this);
-        break;
-
-      case TYPE_NEW_MESSAGE:
-        this._state.dialogsPage.newMessageText = payload.message;
-
-        this._callSubscriber(this);
-        break;
-
-      default:
-        break;
-    }
+    this._callSubscriber(this);
   },
 };
-
-export const addPostActionCreator = () => ({
-  type: ADD_POST,
-});
-export const typeNewPostActionCreator = (post) => ({
-  type: TYPE_NEW_POST,
-  payload: {
-    post,
-  },
-});
-export const addMessageActionCreator = () => ({
-  type: ADD_MESSAGE,
-});
-export const typeNewMessageActionCreator = (message) => ({
-  type: TYPE_NEW_MESSAGE,
-  payload: {
-    message,
-  },
-});
 
 export default store;
