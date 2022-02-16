@@ -18,4 +18,6 @@ const renderAllTree = (store) => {
 };
 
 renderAllTree(store);
-store.subscribe(renderAllTree);
+store.subscribe(() => {
+  renderAllTree(store);
+});

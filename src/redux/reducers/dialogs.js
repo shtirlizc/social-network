@@ -1,7 +1,33 @@
 const ADD_MESSAGE = "ADD_MESSAGE";
 const TYPE_NEW_MESSAGE = "TYPE_NEW_MESSAGE";
 
-const dialogsReducer = (state, action) => {
+const initialState = {
+  messages: [
+    {
+      id: 1,
+      message: "It's great!",
+      isMineMessage: true,
+    },
+    {
+      id: 2,
+      message: "Yo",
+      isMineMessage: true,
+    },
+    {
+      id: 3,
+      message: "How is your it-kamasutra?",
+      isMineMessage: false,
+    },
+    {
+      id: 4,
+      message: "Hi!",
+      isMineMessage: false,
+    },
+  ],
+  newMessageText: "",
+};
+
+const dialogsReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
