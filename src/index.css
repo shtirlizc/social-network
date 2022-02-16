@@ -1,12 +1,14 @@
 :root {
-  --primary: tomato;
-  --primary-accent: crimson;
+  --primary: #fb5607ff;
+  --primary-accent: #ff006eff;
+  --secondary: #8338ecff;
+  --secondary-accent: #3a86ffff;
+  --hover: #ffbe0bff;
 
   --white-color: #ffffff;
-  --black-color: #444444;
+  --black-color: #333333;
 
   --bg-color: #eeeeee;
-  --border-color: #dddddd;
 
   --transition: 0.2s ease-in-out;
 }
