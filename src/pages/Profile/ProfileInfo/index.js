@@ -1,9 +1,9 @@
 import React from "react";
+
 import s from "./ProfileInfo.module.scss";
 
 const ProfileInfo = (props) => {
-  const { state } = props;
-  const { name, avatar, bg, birthday, city, education, webSite } = state;
+  const { name, avatar, bg, birthday, city, education, webSite } = props.info;
   const webSiteAddress = `https://${webSite}`;
 
   return (
@@ -28,7 +28,7 @@ const ProfileInfo = (props) => {
             <dd>{education}</dd>
             <dt>Web Site:</dt>
             <dd>
-              <a href={webSiteAddress} target="_blank" rel="noreferrer">
+              <a href={webSiteAddress} target="_blank" rel="noopener noreferrer">
                 {webSite}
               </a>
             </dd>

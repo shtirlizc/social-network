@@ -1,24 +1,22 @@
 import React from "react";
 
-import DialogItem from "./DialogItem";
-import Message from "./Message";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
-import { addMessageActionCreator, typeNewMessageActionCreator } from "../../redux/reducers/dialogs";
+import DialogItem from "./DialogItem";
+import Message from "./Message";
 
 import s from "./Dialogs.module.scss";
 
 const Dialogs = (props) => {
-  const { state, friends, dispatch } = props;
-  const { messages, newMessageText } = state;
+  const { friends, messages, newMessageText, handleSubmitMessage, handleUpdateNewMessage } = props;
 
-  const handleSubmitMessage = (event) => {
+  const onSubmitMessage = (event) => {
     event.preventDefault();
-    dispatch(addMessageActionCreator());
+    handleSubmitMessage();
   };
 
-  const handleUpdateNewMessage = (event) => {
-    dispatch(typeNewMessageActionCreator(event.target.value));
+  const onUpdateNewMessage = (event) => {
+    handleUpdateNewMessage(event.target.value);
   };
 
   const dialogsElements = friends.map(({ id, name, avatar }) => (
@@ -34,13 +32,13 @@ const Dialogs = (props) => {
       <div className={s.messages}>
         <div>{messagesElements}</div>
 
-        <form className={s.messagesForm} onSubmit={handleSubmitMessage}>
+        <form className={s.messagesForm} onSubmit={onSubmitMessage}>
           <TextField
             name="message"
             id="message"
             placeholder="Your message..."
             value={newMessageText}
-            onChange={handleUpdateNewMessage}
+            onChange={onUpdateNewMessage}
             isTextArea
           />
           <Button type="submit" disabled={!newMessageText}>

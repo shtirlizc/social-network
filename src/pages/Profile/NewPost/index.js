@@ -2,31 +2,30 @@ import React from "react";
 
 import Button from "../../../components/Button";
 import TextField from "../../../components/TextField";
-import { addPostActionCreator, typeNewPostActionCreator } from "../../../redux/reducers/profile";
 
 import s from "./MyPosts.module.scss";
 
 const NewPost = (props) => {
-  const { newPostText, dispatch } = props;
+  const { newPostText, handleSubmitPost, handleType } = props;
 
-  const handleSubmitPost = (event) => {
+  const onSubmitPost = (event) => {
     event.preventDefault();
-    dispatch(addPostActionCreator());
+    handleSubmitPost();
   };
 
-  const handleType = (event) => {
-    dispatch(typeNewPostActionCreator(event.target.value));
+  const onType = (event) => {
+    handleType(event.target.value);
   };
 
   return (
     <div className={s.root}>
-      <form className={s.form} onSubmit={handleSubmitPost}>
+      <form className={s.form} onSubmit={onSubmitPost}>
         <TextField
           name="message"
           id="message"
           placeholder="Your news..."
           value={newPostText}
-          onChange={handleType}
+          onChange={onType}
           isTextArea
         />
         <Button type="submit" disabled={!newPostText}>
