@@ -5,15 +5,13 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 import s from "./Profile.module.scss";
 
-const Profile = (props) => {
-  const { store } = props;
-
+const Profile = () => {
   return (
     <>
-      <ProfileInfoContainer store={store} />
+      <ProfileInfoContainer />
       <div className={s.posts}>
-        <NewPostContainer store={store} />
-        <MyPostsContainer store={store} />
+        <NewPostContainer />
+        <MyPostsContainer />
       </div>
     </>
   );
