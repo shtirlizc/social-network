@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import Header from "./modules/Header";
-import SidebarContainer from "./modules/Sidebar/SidebarContainer";
+import Sidebar from "./modules/Sidebar";
 import Profile from "./pages/Profile";
-import DialogsContainer from "./pages/Dialogs/DialogsContainer";
+import Dialogs from "./pages/Dialogs";
 import News from "./pages/News";
 import Music from "./pages/Music";
 import Settings from "./pages/Settings";
@@ -16,11 +16,11 @@ const App = () => {
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
-        <SidebarContainer />
+        <Sidebar />
 
         <main className="app-content">
           <Route path="/profile" component={Profile} />
-          <Route path="/dialogs" component={DialogsContainer} />
+          <Route path="/dialogs" component={Dialogs} />
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />
           <Route path="/settings" component={Settings} />

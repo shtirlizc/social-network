@@ -1,17 +1,17 @@
 import React from "react";
-import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
-import NewPostContainer from "./NewPost/NewPostContainer";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import ProfileInfo from "./ProfileInfo";
+import NewPost from "./NewPost";
+import MyPosts from "./MyPosts";
 
 import s from "./Profile.module.scss";
 
 const Profile = () => {
   return (
     <>
-      <ProfileInfoContainer />
+      <ProfileInfo />
       <div className={s.posts}>
-        <NewPostContainer />
-        <MyPostsContainer />
+        <NewPost />
+        <MyPosts />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import Friend from "./Friend";
 import PageLink from "./PageLink";
@@ -24,4 +25,13 @@ const Sidebar = (props) => {
   );
 };
 
-export default Sidebar;
+const mapStateToProps = (state) => {
+  return {
+    sidebar: state.sidebar,
+    friends: state.friends,
+  };
+};
+
+const SidebarContainer = connect(mapStateToProps)(Sidebar);
+
+export default SidebarContainer;

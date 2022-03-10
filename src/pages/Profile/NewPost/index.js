@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
+import { addPostActionCreator, typeNewPostActionCreator } from "../../../redux/reducers/profile";
 import Button from "../../../components/Button";
 import TextField from "../../../components/TextField";
 
@@ -36,4 +38,23 @@ const NewPost = (props) => {
   );
 };
 
-export default NewPost;
+const mapStateToProps = (state) => {
+  return {
+    newPostText: state.profilePage.newPostText,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSubmitPost: () => {
+      dispatch(addPostActionCreator());
+    },
+    handleType: (value) => {
+      dispatch(typeNewPostActionCreator(value));
+    },
+  };
+};
+
+const NewPostContainer = connect(mapStateToProps, mapDispatchToProps)(NewPost);
+
+export default NewPostContainer;

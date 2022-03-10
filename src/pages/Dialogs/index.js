@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
+import { addMessageActionCreator, typeNewMessageActionCreator } from "../../redux/reducers/dialogs";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 import DialogItem from "./DialogItem";
@@ -50,4 +52,27 @@ const Dialogs = (props) => {
   );
 };
 
-export default Dialogs;
+const mapStateToProps = (state) => {
+  const { friends, dialogsPage } = state;
+
+  return {
+    friends,
+    messages: dialogsPage.messages,
+    newMessageText: dialogsPage.newMessageText,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSubmitMessage: () => {
+      dispatch(addMessageActionCreator());
+    },
+    handleUpdateNewMessage: (value) => {
+      dispatch(typeNewMessageActionCreator(value));
+    },
+  };
+};
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+export default DialogsContainer;

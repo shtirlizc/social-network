@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import s from "./ProfileInfo.module.scss";
 
@@ -39,4 +40,12 @@ const ProfileInfo = (props) => {
   );
 };
 
-export default ProfileInfo;
+const mapStateToProps = (state) => {
+  return {
+    info: state.profilePage.info,
+  };
+};
+
+const ProfileInfoContainer = connect(mapStateToProps)(ProfileInfo);
+
+export default ProfileInfoContainer;

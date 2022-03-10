@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import Post from "./Post";
 
@@ -18,4 +19,12 @@ const MyPosts = (props) => {
   );
 };
 
-export default MyPosts;
+const mapStateToProps = (state) => {
+  return {
+    posts: state.profilePage.posts,
+  };
+};
+
+const MyPostsContainer = connect(mapStateToProps)(MyPosts);
+
+export default MyPostsContainer;
