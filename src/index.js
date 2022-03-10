@@ -7,18 +7,11 @@ import { Provider } from "react-redux";
 
 import "./index.css";
 
-const renderAllTree = (store) => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>,
-    document.getElementById("root"),
-  );
-};
-
-renderAllTree(store);
-store.subscribe(() => {
-  renderAllTree(store);
-});
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root"),
+);
