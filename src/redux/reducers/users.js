@@ -4,6 +4,7 @@ const UNFOLLOW = "UNFOLLOW";
 
 const initialState = {
   users: [],
+  loaded: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -11,7 +12,7 @@ const usersReducer = (state = initialState, action) => {
 
   switch (type) {
     case SET_USERS:
-      return { ...state, users: payload.users };
+      return { ...state, users: payload.users, loaded: true };
 
     case FOLLOW:
       return {

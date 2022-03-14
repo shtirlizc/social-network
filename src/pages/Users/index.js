@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import * as axios from "axios";
 
 import {
   setUsersActionCreator,
@@ -7,39 +8,17 @@ import {
   unfollowActionCreator,
 } from "../../redux/reducers/users";
 import Button from "../../components/Button";
+import Avatar from "./assets/avatar.jpeg";
 
 import s from "./Users.module.scss";
 
 const Users = (props) => {
-  const { users, handleSetUsers, handleFollow, handleUnfollow } = props;
+  const { users, isUsersLoaded, handleSetUsers, handleFollow, handleUnfollow } = props;
 
   useEffect(() => {
-    handleSetUsers([
-      {
-        id: 1,
-        photoImg: "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png",
-        fullName: "Superman",
-        slogan: "I am a Superman",
-        location: { country: "USA", city: "Metro city" },
-        followed: true,
-      },
-      {
-        id: 2,
-        photoImg: "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png",
-        fullName: "Batman",
-        slogan: "I am a Batman",
-        location: { country: "USA", city: "Gotham" },
-        followed: false,
-      },
-      {
-        id: 3,
-        photoImg: "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png",
-        fullName: "Spider-man",
-        slogan: "I am a Spider-man",
-        location: { country: "USA", city: "New York" },
-        followed: true,
-      },
-    ]);
+    axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
+      response.status === 200 ? handleSetUsers(response.data.items) : handleSetUsers([]);
+    });
   }, []);
 
   const onFollow = (userId) => {
@@ -50,11 +29,11 @@ const Users = (props) => {
     handleUnfollow(userId);
   };
 
-  const userView = users.map(({ id, photoImg, fullName, slogan, location, followed }) => (
+  const userView = users.map(({ id, photos, name, status, followed }) => (
     <div key={id} className={s.user}>
       <div className={s.userLeftBlock}>
         <div className={s.userPhoto}>
-          <img src={photoImg} alt={fullName} />
+          <img src={photos.small || Avatar} alt={name} />
         </div>
         <div className={s.userSubscribe}>
           {followed ? (
@@ -65,14 +44,8 @@ const Users = (props) => {
         </div>
       </div>
       <div className={s.userRightBlock}>
-        <div className={s.userData}>
-          <h3 className={s.userName}>{fullName}</h3>
-          <p className={s.userSlogan}>{slogan}</p>
-        </div>
-        <div className={s.userLocation}>
-          <p className={s.userCountry}>{location.country}</p>
-          <p className={s.userCity}>{location.city}</p>
-        </div>
+        <h3 className={s.userName}>{name}</h3>
+        {status && <p className={s.userSlogan}>{status}</p>}
       </div>
     </div>
   ));
@@ -81,7 +54,11 @@ const Users = (props) => {
     <div className={s.root}>
       <h1>Users</h1>
 
-      <div className={s.list}>{userView}</div>
+      {isUsersLoaded && userView.length ? (
+        <div className={s.list}>{userView}</div>
+      ) : (
+        <p>Users were not loaded</p>
+      )}
     </div>
   );
 };
@@ -89,6 +66,7 @@ const Users = (props) => {
 const mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
+    isUsersLoaded: state.usersPage.loaded,
   };
 };
 

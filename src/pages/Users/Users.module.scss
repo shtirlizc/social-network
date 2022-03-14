@@ -36,12 +36,6 @@
   }
 
   &RightBlock {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-
-  &Data {
   }
 
   &Name {
@@ -49,21 +43,6 @@
   }
 
   &Slogan {
-    margin: 12px 0 0;
-    font-size: 18px;
-  }
-
-  &Location {
-    text-align: right;
-  }
-
-  &Country {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  &City {
     margin: 12px 0 0;
     font-size: 18px;
   }
