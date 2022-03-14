@@ -1,0 +1,70 @@
+.root {
+  padding-bottom: 32px;
+}
+
+.list {
+}
+
+.user {
+  box-shadow: var(--box-shadow);
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+  padding: 12px;
+
+  &:not(:last-child) {
+    margin-bottom: 32px;
+  }
+
+  &LeftBlock {
+  }
+
+  &Photo {
+    border: 1px solid var(--bg-color);
+
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &Subscribe {
+    display: flex;
+    justify-content: center;
+  }
+
+  &RightBlock {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &Data {
+  }
+
+  &Name {
+    margin: 0;
+  }
+
+  &Slogan {
+    margin: 12px 0 0;
+    font-size: 18px;
+  }
+
+  &Location {
+    text-align: right;
+  }
+
+  &Country {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  &City {
+    margin: 12px 0 0;
+    font-size: 18px;
+  }
+}
