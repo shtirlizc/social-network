@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import * as axios from "axios";
 
@@ -12,56 +12,60 @@ import Avatar from "./assets/avatar.jpeg";
 
 import s from "./Users.module.scss";
 
-const Users = (props) => {
-  const { users, isUsersLoaded, handleSetUsers, handleFollow, handleUnfollow } = props;
-
-  useEffect(() => {
+class Users extends React.Component {
+  componentDidMount() {
     axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
-      response.status === 200 ? handleSetUsers(response.data.items) : handleSetUsers([]);
+      response.status === 200
+        ? this.props.handleSetUsers(response.data.items)
+        : this.props.handleSetUsers([]);
     });
-  }, []);
+  }
 
-  const onFollow = (userId) => {
-    handleFollow(userId);
+  onFollow = (userId) => {
+    this.props.handleFollow(userId);
   };
 
-  const onUnfollow = (userId) => {
-    handleUnfollow(userId);
+  onUnfollow = (userId) => {
+    this.props.handleUnfollow(userId);
   };
 
-  const userView = users.map(({ id, photos, name, status, followed }) => (
-    <div key={id} className={s.user}>
-      <div className={s.userLeftBlock}>
-        <div className={s.userPhoto}>
-          <img src={photos.small || Avatar} alt={name} />
+  render() {
+    const { users, isUsersLoaded } = this.props;
+
+    const userView = users.map(({ id, photos, name, status, followed }) => (
+      <div key={id} className={s.user}>
+        <div className={s.userLeftBlock}>
+          <div className={s.userPhoto}>
+            <img src={photos.small || Avatar} alt={name} />
+          </div>
+          <div className={s.userSubscribe}>
+            {followed ? (
+              <Button onClick={() => this.onUnfollow(id)}>Unfollow</Button>
+            ) : (
+              <Button onClick={() => this.onFollow(id)}>Follow</Button>
+            )}
+          </div>
         </div>
-        <div className={s.userSubscribe}>
-          {followed ? (
-            <Button onClick={() => onUnfollow(id)}>Unfollow</Button>
-          ) : (
-            <Button onClick={() => onFollow(id)}>Follow</Button>
-          )}
+        <div className={s.userRightBlock}>
+          <h3 className={s.userName}>{name}</h3>
+          {status && <p className={s.userSlogan}>{status}</p>}
         </div>
       </div>
-      <div className={s.userRightBlock}>
-        <h3 className={s.userName}>{name}</h3>
-        {status && <p className={s.userSlogan}>{status}</p>}
+    ));
+
+    return (
+      <div className={s.root}>
+        <h1>Users</h1>
+
+        {isUsersLoaded && userView.length ? (
+          <div className={s.list}>{userView}</div>
+        ) : (
+          <p>Users were not loaded</p>
+        )}
       </div>
-    </div>
-  ));
-
-  return (
-    <div className={s.root}>
-      <h1>Users</h1>
-
-      {isUsersLoaded && userView.length ? (
-        <div className={s.list}>{userView}</div>
-      ) : (
-        <p>Users were not loaded</p>
-      )}
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
