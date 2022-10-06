@@ -6,19 +6,30 @@ import {
   setUsersActionCreator,
   followActionCreator,
   unfollowActionCreator,
+  setTotalUsersCount,
+  setCurrentPage,
 } from "../../redux/reducers/users";
 import Button from "../../components/Button";
 import Avatar from "./assets/avatar.jpeg";
+import Pagination from "../../components/Pagination";
 
 import s from "./Users.module.scss";
 
+const PAGE_SIZE = 100;
+
 class Users extends React.Component {
   componentDidMount() {
-    axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
-      response.status === 200
-        ? this.props.handleSetUsers(response.data.items)
-        : this.props.handleSetUsers([]);
-    });
+    const { currentPage, handleSetUsers, handleSetTotalCount } = this.props;
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?count=${PAGE_SIZE}&page=${currentPage}`,
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          handleSetUsers(response.data.items);
+          handleSetTotalCount(response.data.totalCount);
+        }
+      });
   }
 
   onFollow = (userId) => {
@@ -29,8 +40,23 @@ class Users extends React.Component {
     this.props.handleUnfollow(userId);
   };
 
+  onPageClick = (pageNumber) => {
+    const { handleSetUsers, handleSetCurrentPage } = this.props;
+
+    handleSetCurrentPage(pageNumber);
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?count=${PAGE_SIZE}&page=${pageNumber}`,
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          handleSetUsers(response.data.items);
+        }
+      });
+  };
+
   render() {
-    const { users, isUsersLoaded } = this.props;
+    const { users, isUsersLoaded, totalUsersCount, currentPage } = this.props;
 
     const userView = users.map(({ id, photos, name, status, followed }) => (
       <div key={id} className={s.user}>
@@ -57,6 +83,14 @@ class Users extends React.Component {
       <div className={s.root}>
         <h1>Users</h1>
 
+        <div className={s.pagination}>
+          <Pagination
+            pageCount={Math.ceil(totalUsersCount / PAGE_SIZE)}
+            currentPage={currentPage}
+            onPageClick={this.onPageClick}
+          />
+        </div>
+
         {isUsersLoaded && userView.length ? (
           <div className={s.list}>{userView}</div>
         ) : (
@@ -71,6 +105,8 @@ const mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
     isUsersLoaded: state.usersPage.loaded,
+    totalUsersCount: state.usersPage.totalUsersCount,
+    currentPage: state.usersPage.currentPage,
   };
 };
 
@@ -84,6 +120,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleUnfollow: (userId) => {
       dispatch(unfollowActionCreator(userId));
+    },
+    handleSetTotalCount: (totalCount) => {
+      dispatch(setTotalUsersCount(totalCount));
+    },
+    handleSetCurrentPage: (pageNumber) => {
+      dispatch(setCurrentPage(pageNumber));
     },
   };
 };

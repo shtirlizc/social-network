@@ -1,7 +1,6 @@
 .root {
   border: none;
-  margin-top: 10px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   height: 40px;
   background-color: var(--primary);
@@ -16,8 +15,13 @@
     background-color: var(--primary-accent);
   }
 
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
   &:disabled {
     filter: grayscale(100%);
     opacity: 0.5;
+    cursor: default;
   }
 }
