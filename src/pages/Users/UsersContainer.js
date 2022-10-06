@@ -9,15 +9,11 @@ import {
   setTotalUsersCount,
   setCurrentPage,
 } from "../../redux/reducers/users";
-import Button from "../../components/Button";
-import Avatar from "./assets/avatar.jpeg";
-import Pagination from "../../components/Pagination";
-
-import s from "./Users.module.scss";
+import Users from "./Users";
 
 const PAGE_SIZE = 100;
 
-class Users extends React.Component {
+class UsersContainer extends React.Component {
   componentDidMount() {
     const { currentPage, handleSetUsers, handleSetTotalCount } = this.props;
     axios
@@ -58,45 +54,16 @@ class Users extends React.Component {
   render() {
     const { users, isUsersLoaded, totalUsersCount, currentPage } = this.props;
 
-    const userView = users.map(({ id, photos, name, status, followed }) => (
-      <div key={id} className={s.user}>
-        <div className={s.userLeftBlock}>
-          <div className={s.userPhoto}>
-            <img src={photos.small || Avatar} alt={name} />
-          </div>
-          <div className={s.userSubscribe}>
-            {followed ? (
-              <Button onClick={() => this.onUnfollow(id)}>Unfollow</Button>
-            ) : (
-              <Button onClick={() => this.onFollow(id)}>Follow</Button>
-            )}
-          </div>
-        </div>
-        <div className={s.userRightBlock}>
-          <h3 className={s.userName}>{name}</h3>
-          {status && <p className={s.userSlogan}>{status}</p>}
-        </div>
-      </div>
-    ));
-
     return (
-      <div className={s.root}>
-        <h1>Users</h1>
-
-        <div className={s.pagination}>
-          <Pagination
-            pageCount={Math.ceil(totalUsersCount / PAGE_SIZE)}
-            currentPage={currentPage}
-            onPageClick={this.onPageClick}
-          />
-        </div>
-
-        {isUsersLoaded && userView.length ? (
-          <div className={s.list}>{userView}</div>
-        ) : (
-          <p>Users were not loaded</p>
-        )}
-      </div>
+      <Users
+        users={users}
+        currentPage={currentPage}
+        isUsersLoaded={isUsersLoaded}
+        pageCount={Math.ceil(totalUsersCount / PAGE_SIZE)}
+        onPageClick={this.onPageClick}
+        onFollow={this.onFollow}
+        onUnfollow={this.onUnfollow}
+      />
     );
   }
 }
@@ -130,6 +97,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
-
-export default UsersContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

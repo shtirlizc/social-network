@@ -5,7 +5,7 @@ import Header from "./modules/Header";
 import Sidebar from "./modules/Sidebar";
 import Profile from "./pages/Profile";
 import Dialogs from "./pages/Dialogs";
-import Users from "./pages/Users";
+import Users from "./pages/Users/UsersContainer";
 import News from "./pages/News";
 import Music from "./pages/Music";
 import Settings from "./pages/Settings";
