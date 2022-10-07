@@ -8,14 +8,18 @@ import {
   unfollowActionCreator,
   setTotalUsersCount,
   setCurrentPage,
+  setIsFetching,
 } from "../../redux/reducers/users";
 import Users from "./Users";
+import Preloader from "../../components/Preloader";
 
 const PAGE_SIZE = 100;
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    const { currentPage, handleSetUsers, handleSetTotalCount } = this.props;
+    const { currentPage, handleSetUsers, handleSetTotalCount, handleSetISFetching } = this.props;
+
+    handleSetISFetching(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?count=${PAGE_SIZE}&page=${currentPage}`,
@@ -24,6 +28,7 @@ class UsersContainer extends React.Component {
         if (response.status === 200) {
           handleSetUsers(response.data.items);
           handleSetTotalCount(response.data.totalCount);
+          handleSetISFetching(false);
         }
       });
   }
@@ -37,8 +42,9 @@ class UsersContainer extends React.Component {
   };
 
   onPageClick = (pageNumber) => {
-    const { handleSetUsers, handleSetCurrentPage } = this.props;
+    const { handleSetUsers, handleSetCurrentPage, handleSetISFetching } = this.props;
 
+    handleSetISFetching(true);
     handleSetCurrentPage(pageNumber);
     axios
       .get(
@@ -47,18 +53,20 @@ class UsersContainer extends React.Component {
       .then((response) => {
         if (response.status === 200) {
           handleSetUsers(response.data.items);
+          handleSetISFetching(false);
         }
       });
   };
 
   render() {
-    const { users, isUsersLoaded, totalUsersCount, currentPage } = this.props;
+    const { users, isFetching, totalUsersCount, currentPage } = this.props;
 
-    return (
+    return isFetching ? (
+      <Preloader />
+    ) : (
       <Users
         users={users}
         currentPage={currentPage}
-        isUsersLoaded={isUsersLoaded}
         pageCount={Math.ceil(totalUsersCount / PAGE_SIZE)}
         onPageClick={this.onPageClick}
         onFollow={this.onFollow}
@@ -71,7 +79,7 @@ class UsersContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
-    isUsersLoaded: state.usersPage.loaded,
+    isFetching: state.usersPage.isFetching,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
   };
@@ -93,6 +101,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleSetCurrentPage: (pageNumber) => {
       dispatch(setCurrentPage(pageNumber));
+    },
+    handleSetISFetching: (isFetching) => {
+      dispatch(setIsFetching(isFetching));
     },
   };
 };

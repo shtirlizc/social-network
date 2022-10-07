@@ -6,15 +6,7 @@ import Pagination from "../../components/Pagination";
 
 import s from "./Users.module.scss";
 
-const Users = ({
-  users,
-  isUsersLoaded,
-  currentPage,
-  pageCount,
-  onPageClick,
-  onFollow,
-  onUnfollow,
-}) => {
+const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollow }) => {
   const userView = users.map(({ id, photos, name, status, followed }) => (
     <div key={id} className={s.user}>
       <div className={s.userLeftBlock}>
@@ -44,11 +36,7 @@ const Users = ({
         <Pagination pageCount={pageCount} currentPage={currentPage} onPageClick={onPageClick} />
       </div>
 
-      {isUsersLoaded && userView.length ? (
-        <div className={s.list}>{userView}</div>
-      ) : (
-        <p>Users were not loaded</p>
-      )}
+      {!userView.length && <p>Users were not loaded</p>}
     </div>
   );
 };

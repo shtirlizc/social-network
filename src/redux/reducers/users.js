@@ -3,10 +3,11 @@ const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_IS_FETCHING = "SET_IS_FETCHING";
 
 const initialState = {
   users: [],
-  loaded: false,
+  isFetching: false,
   totalUsersCount: 0,
   currentPage: 1,
 };
@@ -16,7 +17,7 @@ const usersReducer = (state = initialState, action) => {
 
   switch (type) {
     case SET_USERS:
-      return { ...state, users: payload.users, loaded: true };
+      return { ...state, users: payload.users };
 
     case FOLLOW:
       return {
@@ -52,6 +53,12 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: payload.pageNumber,
+      };
+
+    case SET_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: payload.isFetching,
       };
 
     default:
@@ -90,6 +97,13 @@ export const setCurrentPage = (pageNumber) => ({
   type: SET_CURRENT_PAGE,
   payload: {
     pageNumber,
+  },
+});
+
+export const setIsFetching = (isFetching) => ({
+  type: SET_IS_FETCHING,
+  payload: {
+    isFetching,
   },
 });
 

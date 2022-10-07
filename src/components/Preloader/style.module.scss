@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  min-height: calc(100vh - 120px);
+
+  svg {
+    width: 64px;
+
+    circle,
+    line {
+      stroke: var(--primary);
+    }
+  }
+}
