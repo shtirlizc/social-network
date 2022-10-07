@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import { addMessageActionCreator, typeNewMessageActionCreator } from "../../redux/reducers/dialogs";
 import TextField from "../../components/TextField";
@@ -9,9 +10,13 @@ import Message from "./Message";
 
 import s from "./Dialogs.module.scss";
 
-const Dialogs = (props) => {
-  const { friends, messages, newMessageText, handleSubmitMessage, handleUpdateNewMessage } = props;
-
+const Dialogs = ({
+  friends,
+  messages,
+  newMessageText,
+  handleSubmitMessage,
+  handleUpdateNewMessage,
+}) => {
   const onSubmitMessage = (event) => {
     event.preventDefault();
     handleSubmitMessage();
@@ -43,7 +48,7 @@ const Dialogs = (props) => {
             onChange={onUpdateNewMessage}
             isTextArea
           />
-          <Button type="submit" disabled={!newMessageText}>
+          <Button htmlType="submit" disabled={!newMessageText}>
             Send
           </Button>
         </form>
@@ -62,15 +67,33 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleSubmitMessage: () => {
-      dispatch(addMessageActionCreator());
-    },
-    handleUpdateNewMessage: (value) => {
-      dispatch(typeNewMessageActionCreator(value));
-    },
-  };
+const mapDispatchToProps = (dispatch) => ({
+  handleSubmitMessage: () => {
+    dispatch(addMessageActionCreator());
+  },
+  handleUpdateNewMessage: (value) => {
+    dispatch(typeNewMessageActionCreator(value));
+  },
+});
+
+Dialogs.propTypes = {
+  friends: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      avatar: PropTypes.string,
+    }),
+  ).isRequired,
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      isMineMessage: PropTypes.bool,
+      message: PropTypes.string,
+    }),
+  ).isRequired,
+  newMessageText: PropTypes.string.isRequired,
+  handleSubmitMessage: PropTypes.func.isRequired,
+  handleUpdateNewMessage: PropTypes.func.isRequired,
 };
 
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);

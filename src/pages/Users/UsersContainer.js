@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as axios from "axios";
+import PropTypes from "prop-types";
 
 import {
   setUsersActionCreator,
@@ -34,11 +35,15 @@ class UsersContainer extends React.Component {
   }
 
   onFollow = (userId) => {
-    this.props.handleFollow(userId);
+    const { handleFollow } = this.props;
+
+    handleFollow(userId);
   };
 
   onUnfollow = (userId) => {
-    this.props.handleUnfollow(userId);
+    const { handleUnfollow } = this.props;
+
+    handleUnfollow(userId);
   };
 
   onPageClick = (pageNumber) => {
@@ -76,36 +81,57 @@ class UsersContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    users: state.usersPage.users,
-    isFetching: state.usersPage.isFetching,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-  };
-};
+const mapStateToProps = (state) => ({
+  users: state.usersPage.users,
+  isFetching: state.usersPage.isFetching,
+  totalUsersCount: state.usersPage.totalUsersCount,
+  currentPage: state.usersPage.currentPage,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleSetUsers: (users) => {
-      dispatch(setUsersActionCreator(users));
-    },
-    handleFollow: (userId) => {
-      dispatch(followActionCreator(userId));
-    },
-    handleUnfollow: (userId) => {
-      dispatch(unfollowActionCreator(userId));
-    },
-    handleSetTotalCount: (totalCount) => {
-      dispatch(setTotalUsersCount(totalCount));
-    },
-    handleSetCurrentPage: (pageNumber) => {
-      dispatch(setCurrentPage(pageNumber));
-    },
-    handleSetISFetching: (isFetching) => {
-      dispatch(setIsFetching(isFetching));
-    },
-  };
+const mapDispatchToProps = (dispatch) => ({
+  handleSetUsers: (users) => {
+    dispatch(setUsersActionCreator(users));
+  },
+  handleFollow: (userId) => {
+    dispatch(followActionCreator(userId));
+  },
+  handleUnfollow: (userId) => {
+    dispatch(unfollowActionCreator(userId));
+  },
+  handleSetTotalCount: (totalCount) => {
+    dispatch(setTotalUsersCount(totalCount));
+  },
+  handleSetCurrentPage: (pageNumber) => {
+    dispatch(setCurrentPage(pageNumber));
+  },
+  handleSetISFetching: (isFetching) => {
+    dispatch(setIsFetching(isFetching));
+  },
+});
+
+UsersContainer.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      followed: PropTypes.bool,
+      status: PropTypes.string,
+      uniqueUrlName: PropTypes.string,
+      photos: PropTypes.shape({
+        small: PropTypes.string,
+        large: PropTypes.string,
+      }),
+    }),
+  ).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  totalUsersCount: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  handleSetUsers: PropTypes.func.isRequired,
+  handleFollow: PropTypes.func.isRequired,
+  handleUnfollow: PropTypes.func.isRequired,
+  handleSetTotalCount: PropTypes.func.isRequired,
+  handleSetCurrentPage: PropTypes.func.isRequired,
+  handleSetISFetching: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import Post from "./Post";
 
 import s from "./MyPosts.module.scss";
 
-const MyPosts = (props) => {
-  const { posts } = props;
+const MyPosts = ({ posts }) => {
   const postsElements = posts.map(({ id, message, likesCount }) => (
     <Post key={id} message={message} likes={likesCount} />
   ));
@@ -19,10 +19,18 @@ const MyPosts = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    posts: state.profilePage.posts,
-  };
+const mapStateToProps = (state) => ({
+  posts: state.profilePage.posts,
+});
+
+MyPosts.propTypes = {
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      likesCount: PropTypes.number,
+      message: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 const MyPostsContainer = connect(mapStateToProps)(MyPosts);

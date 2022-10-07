@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import { addPostActionCreator, typeNewPostActionCreator } from "../../../redux/reducers/profile";
 import Button from "../../../components/Button";
@@ -30,7 +31,7 @@ const NewPost = (props) => {
           onChange={onType}
           isTextArea
         />
-        <Button type="submit" disabled={!newPostText}>
+        <Button htmlType="submit" disabled={!newPostText}>
           Send
         </Button>
       </form>
@@ -38,21 +39,23 @@ const NewPost = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    newPostText: state.profilePage.newPostText,
-  };
-};
+const mapStateToProps = (state) => ({
+  newPostText: state.profilePage.newPostText,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleSubmitPost: () => {
-      dispatch(addPostActionCreator());
-    },
-    handleType: (value) => {
-      dispatch(typeNewPostActionCreator(value));
-    },
-  };
+const mapDispatchToProps = (dispatch) => ({
+  handleSubmitPost: () => {
+    dispatch(addPostActionCreator());
+  },
+  handleType: (value) => {
+    dispatch(typeNewPostActionCreator(value));
+  },
+});
+
+NewPost.propTypes = {
+  newPostText: PropTypes.string.isRequired,
+  handleType: PropTypes.func.isRequired,
+  handleSubmitPost: PropTypes.func.isRequired,
 };
 
 const NewPostContainer = connect(mapStateToProps, mapDispatchToProps)(NewPost);

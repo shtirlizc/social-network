@@ -12,24 +12,22 @@ import Settings from "./pages/Settings";
 
 import "./App.css";
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <Header />
-        <Sidebar />
+const App = () => (
+  <BrowserRouter>
+    <div className="app-wrapper">
+      <Header />
+      <Sidebar />
 
-        <main className="app-content">
-          <Route path="/profile" component={Profile} />
-          <Route path="/dialogs" component={Dialogs} />
-          <Route path="/users" component={Users} />
-          <Route path="/news" component={News} />
-          <Route path="/music" component={Music} />
-          <Route path="/settings" component={Settings} />
-        </main>
-      </div>
-    </BrowserRouter>
-  );
-};
+      <main className="app-content">
+        <Route path="/profile" component={Profile} />
+        <Route path="/dialogs" component={Dialogs} />
+        <Route path="/users" component={Users} />
+        <Route path="/news" component={News} />
+        <Route path="/music" component={Music} />
+        <Route path="/settings" component={Settings} />
+      </main>
+    </div>
+  </BrowserRouter>
+);
 
 export default App;

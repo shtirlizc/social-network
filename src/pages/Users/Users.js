@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Button from "../../components/Button";
 import Avatar from "./assets/avatar.jpeg";
@@ -39,6 +40,27 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
       {!userView.length && <p>Users were not loaded</p>}
     </div>
   );
+};
+
+Users.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      followed: PropTypes.bool,
+      status: PropTypes.string,
+      uniqueUrlName: PropTypes.string,
+      photos: PropTypes.shape({
+        small: PropTypes.string,
+        large: PropTypes.string,
+      }),
+    }),
+  ).isRequired,
+  currentPage: PropTypes.number.isRequired,
+  pageCount: PropTypes.number.isRequired,
+  onPageClick: PropTypes.func.isRequired,
+  onFollow: PropTypes.func.isRequired,
+  onUnfollow: PropTypes.func.isRequired,
 };
 
 export default Users;

@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import s from "./ProfileInfo.module.scss";
 
-const ProfileInfo = (props) => {
-  const { name, avatar, bg, birthday, city, education, webSite } = props.info;
+const ProfileInfo = ({ info }) => {
+  const { name, avatar, bg, birthday, city, education, webSite } = info;
   const webSiteAddress = `https://${webSite}`;
 
   return (
@@ -40,10 +41,20 @@ const ProfileInfo = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    info: state.profilePage.info,
-  };
+const mapStateToProps = (state) => ({
+  info: state.profilePage.info,
+});
+
+ProfileInfo.propTypes = {
+  info: PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
+    bg: PropTypes.string,
+    birthday: PropTypes.string,
+    city: PropTypes.string,
+    education: PropTypes.string,
+    webSite: PropTypes.string,
+  }).isRequired,
 };
 
 const ProfileInfoContainer = connect(mapStateToProps)(ProfileInfo);

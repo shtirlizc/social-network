@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import s from "./PageLink.module.scss";
 
-const PageLink = (props) => {
-  const { link, text } = props;
+const PageLink = ({ link, text }) => {
   const href = `/${link}`;
 
   return (
@@ -12,6 +12,11 @@ const PageLink = (props) => {
       {text}
     </NavLink>
   );
+};
+
+PageLink.propTypes = {
+  link: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };
 
 export default PageLink;
