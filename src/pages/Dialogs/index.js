@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { addMessageActionCreator, typeNewMessageActionCreator } from "../../redux/reducers/dialogs";
+import { addMessage, typeNewMessage } from "../../redux/reducers/dialogs";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 import DialogItem from "./DialogItem";
@@ -67,15 +67,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  handleSubmitMessage: () => {
-    dispatch(addMessageActionCreator());
-  },
-  handleUpdateNewMessage: (value) => {
-    dispatch(typeNewMessageActionCreator(value));
-  },
-});
-
 Dialogs.propTypes = {
   friends: PropTypes.arrayOf(
     PropTypes.shape({
@@ -96,6 +87,9 @@ Dialogs.propTypes = {
   handleUpdateNewMessage: PropTypes.func.isRequired,
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(mapStateToProps, {
+  handleSubmitMessage: addMessage,
+  handleUpdateNewMessage: typeNewMessage,
+})(Dialogs);
 
 export default DialogsContainer;

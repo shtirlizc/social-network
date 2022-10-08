@@ -66,20 +66,20 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const setUsersActionCreator = (users) => ({
+export const setUsers = (users) => ({
   type: SET_USERS,
   payload: {
     users,
   },
 });
 
-export const followActionCreator = (userId) => ({
+export const follow = (userId) => ({
   type: FOLLOW,
   payload: {
     userId,
   },
 });
-export const unfollowActionCreator = (userId) => ({
+export const unfollow = (userId) => ({
   type: UNFOLLOW,
   payload: {
     userId,

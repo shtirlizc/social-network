@@ -4,9 +4,9 @@ import * as axios from "axios";
 import PropTypes from "prop-types";
 
 import {
-  setUsersActionCreator,
-  followActionCreator,
-  unfollowActionCreator,
+  setUsers,
+  follow,
+  unfollow,
   setTotalUsersCount,
   setCurrentPage,
   setIsFetching,
@@ -88,27 +88,6 @@ const mapStateToProps = (state) => ({
   currentPage: state.usersPage.currentPage,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  handleSetUsers: (users) => {
-    dispatch(setUsersActionCreator(users));
-  },
-  handleFollow: (userId) => {
-    dispatch(followActionCreator(userId));
-  },
-  handleUnfollow: (userId) => {
-    dispatch(unfollowActionCreator(userId));
-  },
-  handleSetTotalCount: (totalCount) => {
-    dispatch(setTotalUsersCount(totalCount));
-  },
-  handleSetCurrentPage: (pageNumber) => {
-    dispatch(setCurrentPage(pageNumber));
-  },
-  handleSetISFetching: (isFetching) => {
-    dispatch(setIsFetching(isFetching));
-  },
-});
-
 UsersContainer.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
@@ -134,4 +113,11 @@ UsersContainer.propTypes = {
   handleSetISFetching: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+  handleSetUsers: setUsers,
+  handleFollow: follow,
+  handleUnfollow: unfollow,
+  handleSetTotalCount: setTotalUsersCount,
+  handleSetCurrentPage: setCurrentPage,
+  handleSetISFetching: setIsFetching,
+})(UsersContainer);

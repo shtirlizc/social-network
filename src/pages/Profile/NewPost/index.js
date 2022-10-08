@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { addPostActionCreator, typeNewPostActionCreator } from "../../../redux/reducers/profile";
+import { addPost, typeNewPost } from "../../../redux/reducers/profile";
 import Button from "../../../components/Button";
 import TextField from "../../../components/TextField";
 
@@ -43,21 +43,15 @@ const mapStateToProps = (state) => ({
   newPostText: state.profilePage.newPostText,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  handleSubmitPost: () => {
-    dispatch(addPostActionCreator());
-  },
-  handleType: (value) => {
-    dispatch(typeNewPostActionCreator(value));
-  },
-});
-
 NewPost.propTypes = {
   newPostText: PropTypes.string.isRequired,
   handleType: PropTypes.func.isRequired,
   handleSubmitPost: PropTypes.func.isRequired,
 };
 
-const NewPostContainer = connect(mapStateToProps, mapDispatchToProps)(NewPost);
+const NewPostContainer = connect(mapStateToProps, {
+  handleSubmitPost: addPost,
+  handleType: typeNewPost,
+})(NewPost);
 
 export default NewPostContainer;
