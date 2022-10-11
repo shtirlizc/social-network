@@ -1,38 +1,51 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Avatar from "../../Users/assets/avatar.jpeg";
 
 import s from "./ProfileInfo.module.scss";
+import { profileType } from "../../../types";
 
-const ProfileInfo = ({ info }) => {
-  const { name, avatar, bg, birthday, city, education, webSite } = info;
-  const webSiteAddress = `https://${webSite}`;
+const ProfileInfo = ({ profile }) => {
+  const { fullName, aboutMe, lookingForAJob, lookingForAJobDescription, photos, contacts } =
+    profile;
+  const { small, large } = photos;
 
   return (
     <>
-      <div className={s.mainImg}>
-        <img src={bg} alt="" />
-      </div>
+      {large && (
+        <div className={s.mainImg}>
+          <img src={large} alt="" />
+        </div>
+      )}
 
       <div className={s.profile}>
         <div className={s.profileAvatar}>
-          <img src={avatar} alt="" />
+          <img src={small || Avatar} alt="" />
         </div>
 
         <div className={s.profileDesc}>
-          <h3 className={s.profileName}>{name}</h3>
+          <h3 className={s.profileName}>{fullName}</h3>
           <dl className={s.profileList}>
-            <dt>Date of Birth:</dt>
-            <dd>{birthday}</dd>
-            <dt>City:</dt>
-            <dd>{city}</dd>
-            <dt>Education:</dt>
-            <dd>{education}</dd>
-            <dt>Web Site:</dt>
+            <dt>About me:</dt>
+            <dd>{aboutMe}</dd>
+
+            {lookingForAJob && (
+              <>
+                <dt>Looking for a job:</dt>
+                <dd>{lookingForAJobDescription}</dd>
+              </>
+            )}
+
+            <dt>Contacts:</dt>
             <dd>
-              <a href={webSiteAddress} target="_blank" rel="noopener noreferrer">
-                {webSite}
-              </a>
+              <ul>
+                {Object.entries(contacts).map(([key, value]) => (
+                  <li>
+                    {key}: {value}
+                  </li>
+                ))}
+              </ul>
             </dd>
           </dl>
         </div>
@@ -42,19 +55,15 @@ const ProfileInfo = ({ info }) => {
 };
 
 const mapStateToProps = (state) => ({
-  info: state.profilePage.info,
+  profile: state.profilePage.profile,
 });
 
+ProfileInfo.defaultProps = {
+  profile: null,
+};
+
 ProfileInfo.propTypes = {
-  info: PropTypes.exact({
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string,
-    bg: PropTypes.string,
-    birthday: PropTypes.string,
-    city: PropTypes.string,
-    education: PropTypes.string,
-    webSite: PropTypes.string,
-  }).isRequired,
+  profile: PropTypes.exact(profileType),
 };
 
 const ProfileInfoContainer = connect(mapStateToProps)(ProfileInfo);

@@ -13,6 +13,7 @@ import {
 } from "../../redux/reducers/users";
 import Users from "./Users";
 import Preloader from "../../components/Preloader";
+import { usersItem } from "../../types";
 
 const PAGE_SIZE = 100;
 
@@ -89,19 +90,7 @@ const mapStateToProps = (state) => ({
 });
 
 UsersContainer.propTypes = {
-  users: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      followed: PropTypes.bool,
-      status: PropTypes.string,
-      uniqueUrlName: PropTypes.string,
-      photos: PropTypes.shape({
-        small: PropTypes.string,
-        large: PropTypes.string,
-      }),
-    }),
-  ).isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape(usersItem)).isRequired,
   isFetching: PropTypes.bool.isRequired,
   totalUsersCount: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,

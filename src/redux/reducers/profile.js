@@ -1,5 +1,7 @@
 const ADD_POST = "ADD_POST";
 const TYPE_NEW_POST = "TYPE_NEW_POST";
+const SET_PROFILE = "SET_PROFILE";
+const SET_IS_FETCHING = "SET_IS_FETCHING";
 
 const initialState = {
   posts: [
@@ -25,22 +27,26 @@ const initialState = {
     },
   ],
   newPostText: "",
-  info: {
-    name: "Marat S.",
-    avatar:
-      "https://sun9-47.userapi.com/impg/rTgw7T7n13coqYr4RBTihjxnUCwjyqdyVk7_jQ/MsfZ_BSiDGc.jpg?size=519x400&quality=96&proxy=1&sign=f1c988783fd5cce0d899203b5c958130&type=album",
-    bg: "https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg",
-    birthday: "18th April",
-    city: "Ufa",
-    education: "USATU",
-    webSite: "shtirlizc.ru",
-  },
+  profile: null,
+  isFetching: false,
 };
 
 const profileReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case SET_PROFILE:
+      return {
+        ...state,
+        profile: payload.profile,
+      };
+
+    case SET_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: payload.isFetching,
+      };
+
     case ADD_POST:
       return {
         ...state,
@@ -66,6 +72,18 @@ export const typeNewPost = (post) => ({
   type: TYPE_NEW_POST,
   payload: {
     post,
+  },
+});
+export const setProfile = (profile) => ({
+  type: SET_PROFILE,
+  payload: {
+    profile,
+  },
+});
+export const setIsFetching = (isFetching) => ({
+  type: SET_IS_FETCHING,
+  payload: {
+    isFetching,
   },
 });
 

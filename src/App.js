@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import Header from "./modules/Header";
 import Sidebar from "./modules/Sidebar";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/ProfileContainer";
 import Dialogs from "./pages/Dialogs";
 import Users from "./pages/Users/UsersContainer";
 import News from "./pages/News";
