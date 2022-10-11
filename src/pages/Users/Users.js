@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import Button from "../../components/Button";
 import Avatar from "./assets/avatar.jpeg";
@@ -9,7 +10,7 @@ import s from "./Users.module.scss";
 
 const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollow }) => {
   const userView = users.map(({ id, photos, name, status, followed }) => (
-    <div key={id} className={s.user}>
+    <Link to={`/profile/${id}`} key={id} className={s.user}>
       <div className={s.userLeftBlock}>
         <div className={s.userPhoto}>
           <img src={photos.small || Avatar} alt={name} />
@@ -26,7 +27,7 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
         <h3 className={s.userName}>{name}</h3>
         {status && <p className={s.userSlogan}>{status}</p>}
       </div>
-    </div>
+    </Link>
   ));
 
   return (
