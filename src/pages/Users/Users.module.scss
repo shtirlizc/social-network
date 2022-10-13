@@ -10,12 +10,19 @@
 }
 
 .user {
-  box-shadow: var(--box-shadow);
+  text-decoration: none;
+  color: var(--black-color);
   border-radius: 4px;
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 20px;
   padding: 12px;
+  background-color: var(--white-color);
+  transition: box-shadow var(--transition);
+
+  &:hover {
+    box-shadow: var(--box-shadow);
+  }
 
   &:not(:last-child) {
     margin-bottom: 32px;

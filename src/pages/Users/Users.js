@@ -17,9 +17,21 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
         </div>
         <div className={s.userSubscribe}>
           {followed ? (
-            <Button onClick={() => onUnfollow(id)}>Unfollow</Button>
+            <Button
+              onClick={(event) => {
+                event.preventDefault();
+                onUnfollow(id);
+              }}>
+              Unfollow
+            </Button>
           ) : (
-            <Button onClick={() => onFollow(id)}>Follow</Button>
+            <Button
+              onClick={(event) => {
+                event.preventDefault();
+                onFollow(id);
+              }}>
+              Follow
+            </Button>
           )}
         </div>
       </div>
@@ -39,6 +51,7 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
       </div>
 
       {!userView.length && <p>Users were not loaded</p>}
+      {Boolean(userView.length) && userView}
     </div>
   );
 };
