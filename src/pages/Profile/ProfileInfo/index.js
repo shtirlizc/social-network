@@ -41,7 +41,7 @@ const ProfileInfo = ({ profile }) => {
             <dd>
               <ul>
                 {Object.entries(contacts).map(([key, value]) => (
-                  <li>
+                  <li key={key}>
                     {key}: {value}
                   </li>
                 ))}

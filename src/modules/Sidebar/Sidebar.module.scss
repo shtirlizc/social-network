@@ -3,6 +3,9 @@
   background-color: var(--primary);
   padding: 20px;
   min-width: 260px;
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
 
   .nav {
     display: grid;

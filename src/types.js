@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 
 export const profileType = {
-  userId: PropTypes.number,
-  fullName: PropTypes.string,
-  aboutMe: PropTypes.string,
-  lookingForAJob: PropTypes.bool,
+  userId: PropTypes.number.isRequired,
+  fullName: PropTypes.string.isRequired,
+  aboutMe: PropTypes.string.isRequired,
+  lookingForAJob: PropTypes.bool.isRequired,
   lookingForAJobDescription: PropTypes.string,
   photos: PropTypes.exact({
     small: PropTypes.string,
     large: PropTypes.string,
-  }),
+  }).isRequired,
   contacts: PropTypes.exact({
     facebook: PropTypes.string,
     github: PropTypes.string,
@@ -19,7 +19,7 @@ export const profileType = {
     vk: PropTypes.string,
     website: PropTypes.string,
     youtube: PropTypes.string,
-  }),
+  }).isRequired,
 };
 
 export const usersItem = {

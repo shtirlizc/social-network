@@ -19,7 +19,7 @@ const App = () => (
       <Sidebar />
 
       <main className="app-content">
-        <Route path="/profile" component={Profile} />
+        <Route path="/profile/:userId" component={Profile} />
         <Route path="/dialogs" component={Dialogs} />
         <Route path="/users" component={Users} />
         <Route path="/news" component={News} />
