@@ -1,7 +1,7 @@
 .root {
   grid-area: side;
   background-color: var(--primary);
-  padding: 20px;
+  padding: 10px;
   min-width: 260px;
   position: sticky;
   top: 120px;
@@ -9,7 +9,6 @@
 
   .nav {
     display: grid;
-    gap: 20px;
   }
 
   .friends {

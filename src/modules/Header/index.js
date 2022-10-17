@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import s from "./Header.module.scss";
 
-const Header = () => (
+const Header = ({ isAuth, userData }) => (
   <header className={s.root}>
     <Link to="/">
       <img
@@ -11,7 +13,27 @@ const Header = () => (
         alt=""
       />
     </Link>
+
+    {isAuth ? <span>{userData?.login}</span> : <Link to="/login">Login</Link>}
   </header>
 );
 
-export default Header;
+const mapStateToProps = (state) => ({
+  userData: state.authUser.userData,
+  isAuth: state.authUser.isAuth,
+});
+
+Header.defaultProps = {
+  userData: null,
+};
+
+Header.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+  userData: PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    login: PropTypes.string.isRequired,
+  }),
+};
+
+export default connect(mapStateToProps)(Header);
