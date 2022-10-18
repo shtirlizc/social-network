@@ -6,12 +6,14 @@ const UNFOLLOW = `${PREFIX}UNFOLLOW`;
 const SET_TOTAL_COUNT = `${PREFIX}SET_TOTAL_COUNT`;
 const SET_CURRENT_PAGE = `${PREFIX}SET_CURRENT_PAGE`;
 const SET_IS_FETCHING = `${PREFIX}SET_IS_FETCHING`;
+const TOGGLE_FOLLOWING_IN_PROGRESS = `${PREFIX}TOGGLE_FOLLOWING_IN_PROGRESS`;
 
 const initialState = {
   users: [],
   isFetching: false,
   totalUsersCount: 0,
   currentPage: 1,
+  followingInProgress: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -63,6 +65,14 @@ const usersReducer = (state = initialState, action) => {
         isFetching: payload.isFetching,
       };
 
+    case TOGGLE_FOLLOWING_IN_PROGRESS:
+      return {
+        ...state,
+        followingInProgress: payload.isFollowing
+          ? [...state.followingInProgress, payload.userId]
+          : state.followingInProgress.filter((userId) => userId !== payload.userId),
+      };
+
     default:
       return state;
   }
@@ -106,6 +116,14 @@ export const setIsFetching = (isFetching) => ({
   type: SET_IS_FETCHING,
   payload: {
     isFetching,
+  },
+});
+
+export const toggleFollowingInProgress = (isFollowing, userId) => ({
+  type: TOGGLE_FOLLOWING_IN_PROGRESS,
+  payload: {
+    isFollowing,
+    userId,
   },
 });
 

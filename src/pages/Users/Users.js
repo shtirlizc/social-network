@@ -10,19 +10,32 @@ import API from "../../api";
 
 import s from "./Users.module.scss";
 
-const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollow }) => {
+const Users = ({
+  users,
+  currentPage,
+  pageCount,
+  onPageClick,
+  onFollow,
+  onUnfollow,
+  followingInProgress,
+  handleToggleFollowingInProgress,
+}) => {
   const handleFollow = (userId) => {
+    handleToggleFollowingInProgress(true, userId);
     API.follow.follow(userId).then((data) => {
       if (data.resultCode === 0) {
         onFollow(userId);
+        handleToggleFollowingInProgress(false, userId);
       }
     });
   };
 
   const handleUnFollow = (userId) => {
+    handleToggleFollowingInProgress(true, userId);
     API.follow.unFollow(userId).then((data) => {
       if (data.resultCode === 0) {
         onUnfollow(userId);
+        handleToggleFollowingInProgress(false, userId);
       }
     });
   };
@@ -36,6 +49,7 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
         <div className={s.userSubscribe}>
           {followed ? (
             <Button
+              disabled={followingInProgress.some((userId) => userId === id)}
               onClick={(event) => {
                 event.preventDefault();
                 handleUnFollow(id);
@@ -44,6 +58,7 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
             </Button>
           ) : (
             <Button
+              disabled={followingInProgress.some((userId) => userId === id)}
               onClick={(event) => {
                 event.preventDefault();
                 handleFollow(id);
@@ -78,9 +93,11 @@ Users.propTypes = {
   users: PropTypes.arrayOf(PropTypes.exact(usersItem)).isRequired,
   currentPage: PropTypes.number.isRequired,
   pageCount: PropTypes.number.isRequired,
+  followingInProgress: PropTypes.arrayOf(PropTypes.number).isRequired,
   onPageClick: PropTypes.func.isRequired,
   onFollow: PropTypes.func.isRequired,
   onUnfollow: PropTypes.func.isRequired,
+  handleToggleFollowingInProgress: PropTypes.func.isRequired,
 };
 
 export default Users;

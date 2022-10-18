@@ -9,6 +9,7 @@ import {
   setTotalUsersCount,
   setCurrentPage,
   setIsFetching,
+  toggleFollowingInProgress,
 } from "../../redux/reducers/users";
 import Users from "./Users";
 import Preloader from "../../components/Preloader";
@@ -55,7 +56,14 @@ class UsersContainer extends React.Component {
   };
 
   render() {
-    const { users, isFetching, totalUsersCount, currentPage } = this.props;
+    const {
+      users,
+      isFetching,
+      totalUsersCount,
+      currentPage,
+      followingInProgress,
+      handleToggleFollowingInProgress,
+    } = this.props;
 
     return isFetching ? (
       <Preloader />
@@ -67,6 +75,8 @@ class UsersContainer extends React.Component {
         onPageClick={this.onPageClick}
         onFollow={this.onFollow}
         onUnfollow={this.onUnfollow}
+        followingInProgress={followingInProgress}
+        handleToggleFollowingInProgress={handleToggleFollowingInProgress}
       />
     );
   }
@@ -77,6 +87,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.usersPage.isFetching,
   totalUsersCount: state.usersPage.totalUsersCount,
   currentPage: state.usersPage.currentPage,
+  followingInProgress: state.usersPage.followingInProgress,
 });
 
 UsersContainer.propTypes = {
@@ -84,12 +95,14 @@ UsersContainer.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   totalUsersCount: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
+  followingInProgress: PropTypes.arrayOf(PropTypes.number).isRequired,
   handleSetUsers: PropTypes.func.isRequired,
   handleFollow: PropTypes.func.isRequired,
   handleUnfollow: PropTypes.func.isRequired,
   handleSetTotalCount: PropTypes.func.isRequired,
   handleSetCurrentPage: PropTypes.func.isRequired,
   handleSetISFetching: PropTypes.func.isRequired,
+  handleToggleFollowingInProgress: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, {
@@ -99,4 +112,5 @@ export default connect(mapStateToProps, {
   handleSetTotalCount: setTotalUsersCount,
   handleSetCurrentPage: setCurrentPage,
   handleSetISFetching: setIsFetching,
+  handleToggleFollowingInProgress: toggleFollowingInProgress,
 })(UsersContainer);
