@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as axios from "axios";
 import PropTypes from "prop-types";
 
 import {
@@ -14,6 +13,7 @@ import {
 import Users from "./Users";
 import Preloader from "../../components/Preloader";
 import { usersItem } from "../../types";
+import API from "../../api";
 
 const PAGE_SIZE = 100;
 
@@ -22,18 +22,12 @@ class UsersContainer extends React.Component {
     const { currentPage, handleSetUsers, handleSetTotalCount, handleSetISFetching } = this.props;
 
     handleSetISFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${PAGE_SIZE}&page=${currentPage}`,
-        { withCredentials: true },
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          handleSetUsers(response.data.items);
-          handleSetTotalCount(response.data.totalCount);
-          handleSetISFetching(false);
-        }
-      });
+
+    API.users.getUsers(PAGE_SIZE, currentPage).then((data) => {
+      handleSetUsers(data.items);
+      handleSetTotalCount(data.totalCount);
+      handleSetISFetching(false);
+    });
   }
 
   onFollow = (userId) => {
@@ -53,17 +47,11 @@ class UsersContainer extends React.Component {
 
     handleSetISFetching(true);
     handleSetCurrentPage(pageNumber);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${PAGE_SIZE}&page=${pageNumber}`,
-        { withCredentials: true },
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          handleSetUsers(response.data.items);
-          handleSetISFetching(false);
-        }
-      });
+
+    API.users.getUsers(PAGE_SIZE, pageNumber).then((data) => {
+      handleSetUsers(data.items);
+      handleSetISFetching(false);
+    });
   };
 
   render() {

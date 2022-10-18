@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as axios from "axios";
 import PropTypes from "prop-types";
 
 import { setAuthUser, setIsFetching, setProfile } from "../../redux/reducers/auth";
 import Preloader from "../../components/Preloader";
 import { authData as authDataType, profileType } from "../../types";
+import API from "../../api";
 
 import s from "./Login.module.scss";
 
@@ -14,17 +14,13 @@ class Login extends React.Component {
     const { handleAuthUser, handleFetching } = this.props;
 
     handleFetching(true);
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/auth/me", { withCredentials: true })
-      .then((response) => {
-        if (response.status === 200) {
-          if (response.data.resultCode === 0) {
-            const { id, email, login } = response.data.data;
-            handleAuthUser({ id, email, login });
-          }
-          handleFetching(false);
-        }
-      });
+    API.authMe.getAuthMe().then((data) => {
+      if (data.resultCode === 0) {
+        const { id, email, login } = data.data;
+        handleAuthUser({ id, email, login });
+      }
+      handleFetching(false);
+    });
   }
 
   componentDidUpdate() {
@@ -34,16 +30,11 @@ class Login extends React.Component {
       const { id } = authData;
 
       handleFetching(true);
-      axios
-        .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`, {
-          withCredentials: true,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            handleProfile(response.data);
-            handleFetching(false);
-          }
-        });
+
+      API.profile.getProfile(id).then((data) => {
+        handleProfile(data);
+        handleFetching(false);
+      });
     }
   }
 
