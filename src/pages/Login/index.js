@@ -34,12 +34,16 @@ class Login extends React.Component {
       const { id } = authData;
 
       handleFetching(true);
-      axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`).then((response) => {
-        if (response.status === 200) {
-          handleProfile(response.data);
-          handleFetching(false);
-        }
-      });
+      axios
+        .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            handleProfile(response.data);
+            handleFetching(false);
+          }
+        });
     }
   }
 

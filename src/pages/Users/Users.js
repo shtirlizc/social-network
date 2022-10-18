@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import * as axios from "axios";
 
 import Button from "../../components/Button";
 import Avatar from "./assets/avatar.jpeg";
@@ -10,6 +11,38 @@ import { usersItem } from "../../types";
 import s from "./Users.module.scss";
 
 const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollow }) => {
+  const apiKey = process.env.REACT_APP_API_KEY;
+
+  const handleFollow = (userId) => {
+    axios
+      .post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, null, {
+        withCredentials: true,
+        headers: {
+          "API-KEY": apiKey,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200 && response.data.resultCode === 0) {
+          onFollow(userId);
+        }
+      });
+  };
+
+  const handleUnFollow = (userId) => {
+    axios
+      .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
+        withCredentials: true,
+        headers: {
+          "API-KEY": apiKey,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200 && response.data.resultCode === 0) {
+          onUnfollow(userId);
+        }
+      });
+  };
+
   const userView = users.map(({ id, photos, name, status, followed }) => (
     <Link to={`/profile/${id}`} key={id} className={s.user}>
       <div className={s.userLeftBlock}>
@@ -21,7 +54,7 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
             <Button
               onClick={(event) => {
                 event.preventDefault();
-                onUnfollow(id);
+                handleUnFollow(id);
               }}>
               Unfollow
             </Button>
@@ -29,7 +62,7 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
             <Button
               onClick={(event) => {
                 event.preventDefault();
-                onFollow(id);
+                handleFollow(id);
               }}>
               Follow
             </Button>

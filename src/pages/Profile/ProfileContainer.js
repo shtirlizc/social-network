@@ -17,7 +17,9 @@ class ProfileContainer extends React.Component {
     if (userId) {
       handleSetIsFetching(true);
       axios
-        .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
+          withCredentials: true,
+        })
         .then((response) => {
           if (response.status === 200) {
             handleSetProfile(response.data);

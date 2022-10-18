@@ -25,6 +25,7 @@ class UsersContainer extends React.Component {
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?count=${PAGE_SIZE}&page=${currentPage}`,
+        { withCredentials: true },
       )
       .then((response) => {
         if (response.status === 200) {
@@ -55,6 +56,7 @@ class UsersContainer extends React.Component {
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?count=${PAGE_SIZE}&page=${pageNumber}`,
+        { withCredentials: true },
       )
       .then((response) => {
         if (response.status === 200) {
