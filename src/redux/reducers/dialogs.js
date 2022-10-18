@@ -1,5 +1,7 @@
-const ADD_MESSAGE = "ADD_MESSAGE";
-const TYPE_NEW_MESSAGE = "TYPE_NEW_MESSAGE";
+const PREFIX = "DIALOGS_";
+
+const ADD_MESSAGE = `${PREFIX}ADD_MESSAGE`;
+const TYPE_NEW_MESSAGE = `${PREFIX}TYPE_NEW_MESSAGE`;
 
 const initialState = {
   messages: [

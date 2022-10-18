@@ -1,23 +1,33 @@
-const SET_AUTH_USER = "SET_AUTH_USER";
-const SET_IS_FETCHING = "SET_IS_FETCHING";
+const PREFIX = "AUTH_";
+
+const SET_USER = `${PREFIX}SET_USER`;
+const SET_IS_FETCHING = `${PREFIX}SET_IS_FETCHING`;
+const SET_PROFILE = `${PREFIX}SET_PROFILE`;
 
 const initialState = {
-  userData: null,
+  authData: null,
   isFetching: false,
   isAuth: false,
+  profileData: null,
 };
 
 const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case SET_AUTH_USER:
-      return { ...state, userData: payload.userData, isAuth: true };
+    case SET_USER:
+      return { ...state, authData: payload.authData, isAuth: true };
 
     case SET_IS_FETCHING:
       return {
         ...state,
         isFetching: payload.isFetching,
+      };
+
+    case SET_PROFILE:
+      return {
+        ...state,
+        profileData: payload.profileData,
       };
 
     default:
@@ -26,9 +36,9 @@ const authReducer = (state = initialState, action) => {
 };
 
 export const setAuthUser = ({ id, email, login }) => ({
-  type: SET_AUTH_USER,
+  type: SET_USER,
   payload: {
-    userData: {
+    authData: {
       id,
       email,
       login,
@@ -40,6 +50,13 @@ export const setIsFetching = (isFetching) => ({
   type: SET_IS_FETCHING,
   payload: {
     isFetching,
+  },
+});
+
+export const setProfile = (profileData) => ({
+  type: SET_PROFILE,
+  payload: {
+    profileData,
   },
 });
 

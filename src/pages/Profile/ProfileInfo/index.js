@@ -1,10 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
 import Avatar from "../../Users/assets/avatar.jpeg";
+import { profileType } from "../../../types";
 
 import s from "./ProfileInfo.module.scss";
-import { profileType } from "../../../types";
 
 const ProfileInfo = ({ profile }) => {
   const { fullName, aboutMe, lookingForAJob, lookingForAJobDescription, photos, contacts } =
@@ -54,10 +54,6 @@ const ProfileInfo = ({ profile }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  profile: state.profilePage.profile,
-});
-
 ProfileInfo.defaultProps = {
   profile: null,
 };
@@ -66,6 +62,4 @@ ProfileInfo.propTypes = {
   profile: PropTypes.exact(profileType),
 };
 
-const ProfileInfoContainer = connect(mapStateToProps)(ProfileInfo);
-
-export default ProfileInfoContainer;
+export default ProfileInfo;

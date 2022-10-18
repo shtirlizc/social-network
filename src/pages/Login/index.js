@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import * as axios from "axios";
 import PropTypes from "prop-types";
 
-import { setAuthUser, setIsFetching } from "../../redux/reducers/auth";
+import { setAuthUser, setIsFetching, setProfile } from "../../redux/reducers/auth";
 import Preloader from "../../components/Preloader";
+import { profileType } from "../../types";
 
 import s from "./Login.module.scss";
 
@@ -24,6 +25,22 @@ class Login extends React.Component {
           handleFetching(false);
         }
       });
+  }
+
+  componentDidUpdate() {
+    const { profileData, authData, handleProfile, handleFetching } = this.props;
+
+    if (authData && !profileData) {
+      const { id } = authData;
+
+      handleFetching(true);
+      axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`).then((response) => {
+        if (response.status === 200) {
+          handleProfile(response.data);
+          handleFetching(false);
+        }
+      });
+    }
   }
 
   render() {
@@ -47,28 +64,33 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  userData: state.authUser.userData,
+  authData: state.authUser.authData,
   isAuth: state.authUser.isAuth,
   isFetching: state.authUser.isFetching,
+  profileData: state.authUser.profileData,
 });
 
 Login.defaultProps = {
-  userData: null,
+  authData: null,
+  profileData: null,
 };
 
 Login.propTypes = {
-  userData: PropTypes.exact({
+  authData: PropTypes.exact({
     id: PropTypes.number.isRequired,
     email: PropTypes.string.isRequired,
     login: PropTypes.string.isRequired,
   }),
   isAuth: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  profileData: PropTypes.exact(profileType),
   handleAuthUser: PropTypes.func.isRequired,
   handleFetching: PropTypes.func.isRequired,
+  handleProfile: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, {
   handleAuthUser: setAuthUser,
   handleFetching: setIsFetching,
+  handleProfile: setProfile,
 })(Login);

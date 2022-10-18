@@ -1,7 +1,9 @@
-const ADD_POST = "ADD_POST";
-const TYPE_NEW_POST = "TYPE_NEW_POST";
-const SET_PROFILE = "SET_PROFILE";
-const SET_IS_FETCHING = "SET_IS_FETCHING";
+const PREFIX = "PROFILE_";
+
+const ADD_POST = `${PREFIX}ADD_POST`;
+const TYPE_NEW_POST = `${PREFIX}TYPE_NEW_POST`;
+const SET_PROFILE = `${PREFIX}SET_PROFILE`;
+const SET_IS_FETCHING = `${PREFIX}SET_IS_FETCHING`;
 
 const initialState = {
   posts: [

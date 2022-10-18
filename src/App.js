@@ -21,7 +21,7 @@ const App = () => (
 
       <main className="app-content">
         <Route path="/login" component={Login} />
-        <Route path="/profile/:userId" component={Profile} />
+        <Route path="/profile/:userId?" component={Profile} />
         <Route path="/dialogs" component={Dialogs} />
         <Route path="/users" component={Users} />
         <Route path="/news" component={News} />

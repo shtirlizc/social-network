@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import s from "./Header.module.scss";
 
-const Header = ({ isAuth, userData }) => (
+const Header = ({ isAuth, authData }) => (
   <header className={s.root}>
     <Link to="/">
       <img
@@ -14,22 +14,22 @@ const Header = ({ isAuth, userData }) => (
       />
     </Link>
 
-    {isAuth ? <span>{userData?.login}</span> : <Link to="/login">Login</Link>}
+    {isAuth ? <span>{authData?.login}</span> : <Link to="/login">Login</Link>}
   </header>
 );
 
 const mapStateToProps = (state) => ({
-  userData: state.authUser.userData,
+  authData: state.authUser.authData,
   isAuth: state.authUser.isAuth,
 });
 
 Header.defaultProps = {
-  userData: null,
+  authData: null,
 };
 
 Header.propTypes = {
   isAuth: PropTypes.bool.isRequired,
-  userData: PropTypes.exact({
+  authData: PropTypes.exact({
     id: PropTypes.number.isRequired,
     email: PropTypes.string.isRequired,
     login: PropTypes.string.isRequired,

@@ -1,5 +1,14 @@
 import PropTypes from "prop-types";
 
+export const matchType = {
+  isExact: PropTypes.bool.isRequired,
+  params: PropTypes.exact({
+    userId: PropTypes.string,
+  }).isRequired,
+  path: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+};
+
 export const profileType = {
   userId: PropTypes.number.isRequired,
   fullName: PropTypes.string.isRequired,
