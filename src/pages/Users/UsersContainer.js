@@ -90,7 +90,7 @@ const mapStateToProps = (state) => ({
 });
 
 UsersContainer.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape(usersItem)).isRequired,
+  users: PropTypes.arrayOf(PropTypes.exact(usersItem)).isRequired,
   isFetching: PropTypes.bool.isRequired,
   totalUsersCount: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,

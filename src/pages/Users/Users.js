@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import Avatar from "./assets/avatar.jpeg";
 import Pagination from "../../components/Pagination";
+import { usersItem } from "../../types";
 
 import s from "./Users.module.scss";
 
@@ -57,19 +58,7 @@ const Users = ({ users, currentPage, pageCount, onPageClick, onFollow, onUnfollo
 };
 
 Users.propTypes = {
-  users: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      followed: PropTypes.bool,
-      status: PropTypes.string,
-      uniqueUrlName: PropTypes.string,
-      photos: PropTypes.shape({
-        small: PropTypes.string,
-        large: PropTypes.string,
-      }),
-    }),
-  ).isRequired,
+  users: PropTypes.arrayOf(PropTypes.exact(usersItem)).isRequired,
   currentPage: PropTypes.number.isRequired,
   pageCount: PropTypes.number.isRequired,
   onPageClick: PropTypes.func.isRequired,

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import { setAuthUser, setIsFetching, setProfile } from "../../redux/reducers/auth";
 import Preloader from "../../components/Preloader";
-import { profileType } from "../../types";
+import { authData as authDataType, profileType } from "../../types";
 
 import s from "./Login.module.scss";
 
@@ -76,11 +76,7 @@ Login.defaultProps = {
 };
 
 Login.propTypes = {
-  authData: PropTypes.exact({
-    id: PropTypes.number.isRequired,
-    email: PropTypes.string.isRequired,
-    login: PropTypes.string.isRequired,
-  }),
+  authData: PropTypes.exact(authDataType),
   isAuth: PropTypes.bool.isRequired,
   isFetching: PropTypes.bool.isRequired,
   profileData: PropTypes.exact(profileType),

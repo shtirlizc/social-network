@@ -7,6 +7,7 @@ import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 import DialogItem from "./DialogItem";
 import Message from "./Message";
+import { friendItem, postItem } from "../../types";
 
 import s from "./Dialogs.module.scss";
 
@@ -68,20 +69,8 @@ const mapStateToProps = (state) => {
 };
 
 Dialogs.propTypes = {
-  friends: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      avatar: PropTypes.string,
-    }),
-  ).isRequired,
-  messages: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      isMineMessage: PropTypes.bool,
-      message: PropTypes.string,
-    }),
-  ).isRequired,
+  friends: PropTypes.arrayOf(PropTypes.exact(friendItem)).isRequired,
+  messages: PropTypes.arrayOf(PropTypes.exact(postItem)).isRequired,
   newMessageText: PropTypes.string.isRequired,
   handleSubmitMessage: PropTypes.func.isRequired,
   handleUpdateNewMessage: PropTypes.func.isRequired,

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import Post from "./Post";
+import { postItem } from "../../../types";
 
 import s from "./MyPosts.module.scss";
 
@@ -24,13 +25,7 @@ const mapStateToProps = (state) => ({
 });
 
 MyPosts.propTypes = {
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      likesCount: PropTypes.number,
-      message: PropTypes.string,
-    }),
-  ).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.exact(postItem)).isRequired,
 };
 
 const MyPostsContainer = connect(mapStateToProps)(MyPosts);

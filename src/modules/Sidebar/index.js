@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 import Friend from "./Friend";
 import PageLink from "./PageLink";
+import { friendItem, sidebarLink } from "../../types";
 
 import s from "./Sidebar.module.scss";
 
@@ -30,20 +31,8 @@ const mapStateToProps = (state) => ({
 });
 
 Sidebar.propTypes = {
-  friends: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      avatar: PropTypes.string,
-    }),
-  ).isRequired,
-  sidebar: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      link: PropTypes.string,
-      text: PropTypes.string,
-    }),
-  ).isRequired,
+  friends: PropTypes.arrayOf(PropTypes.exact(friendItem)).isRequired,
+  sidebar: PropTypes.arrayOf(PropTypes.exact(sidebarLink)).isRequired,
 };
 
 const SidebarContainer = connect(mapStateToProps)(Sidebar);

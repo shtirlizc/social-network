@@ -37,8 +37,32 @@ export const usersItem = {
   followed: PropTypes.bool,
   status: PropTypes.string,
   uniqueUrlName: PropTypes.string,
-  photos: PropTypes.shape({
+  photos: PropTypes.exact({
     small: PropTypes.string,
     large: PropTypes.string,
   }),
+};
+
+export const authData = {
+  id: PropTypes.number.isRequired,
+  email: PropTypes.string.isRequired,
+  login: PropTypes.string.isRequired,
+};
+
+export const friendItem = {
+  id: PropTypes.number,
+  name: PropTypes.string,
+  avatar: PropTypes.string,
+};
+
+export const sidebarLink = {
+  id: PropTypes.number,
+  link: PropTypes.string,
+  text: PropTypes.string,
+};
+
+export const postItem = {
+  id: PropTypes.number,
+  likesCount: PropTypes.number,
+  message: PropTypes.string,
 };

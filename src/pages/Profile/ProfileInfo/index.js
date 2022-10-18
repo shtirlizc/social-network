@@ -10,6 +10,7 @@ const ProfileInfo = ({ profile }) => {
   const { fullName, aboutMe, lookingForAJob, lookingForAJobDescription, photos, contacts } =
     profile;
   const { small, large } = photos;
+  const contactsList = Object.entries(contacts);
 
   return (
     <>
@@ -27,8 +28,12 @@ const ProfileInfo = ({ profile }) => {
         <div className={s.profileDesc}>
           <h3 className={s.profileName}>{fullName}</h3>
           <dl className={s.profileList}>
-            <dt>About me:</dt>
-            <dd>{aboutMe}</dd>
+            {aboutMe && (
+              <>
+                <dt>About me:</dt>
+                <dd>{aboutMe}</dd>
+              </>
+            )}
 
             {lookingForAJob && (
               <>
@@ -37,16 +42,26 @@ const ProfileInfo = ({ profile }) => {
               </>
             )}
 
-            <dt>Contacts:</dt>
-            <dd>
-              <ul>
-                {Object.entries(contacts).map(([key, value]) => (
-                  <li key={key}>
-                    {key}: {value}
-                  </li>
-                ))}
-              </ul>
-            </dd>
+            {contactsList.some(([, value]) => value) && (
+              <>
+                <dt>Contacts:</dt>
+                <dd>
+                  <ul>
+                    {contactsList.map(([key, value]) => {
+                      if (!value) {
+                        return null;
+                      }
+
+                      return (
+                        <li key={key}>
+                          <strong>{key}:</strong> {value}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </dd>
+              </>
+            )}
           </dl>
         </div>
       </div>
