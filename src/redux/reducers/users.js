@@ -1,3 +1,5 @@
+import API from "../../api";
+
 const PREFIX = "USERS_";
 
 const SET_USERS = `${PREFIX}SET_USERS`;
@@ -13,6 +15,7 @@ const initialState = {
   isFetching: false,
   totalUsersCount: 0,
   currentPage: 1,
+  pageSize: 100,
   followingInProgress: [],
 };
 
@@ -126,5 +129,16 @@ export const toggleFollowingInProgress = (isFollowing, userId) => ({
     userId,
   },
 });
+
+export const getUsers = (pageSize, currentPage) => (dispatch) => {
+  dispatch(setIsFetching(true));
+  dispatch(setCurrentPage(currentPage));
+
+  API.users.getUsers(pageSize, currentPage).then((data) => {
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+    dispatch(setIsFetching(false));
+  });
+};
 
 export default usersReducer;
