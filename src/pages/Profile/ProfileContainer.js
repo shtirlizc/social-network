@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import { compose } from "redux";
 
 import Profile from "./Profile";
 import { getProfile } from "../../redux/reducers/profile";
@@ -40,6 +41,10 @@ ProfileContainer.propTypes = {
   match: PropTypes.exact(matchType).isRequired,
 };
 
-export default connect(mapStateToProps, {
-  handleGetProfile: getProfile,
-})(withRouter(withAuthRedirect(ProfileContainer)));
+export default compose(
+  connect(mapStateToProps, {
+    handleGetProfile: getProfile,
+  }),
+  withRouter,
+  withAuthRedirect,
+)(ProfileContainer);

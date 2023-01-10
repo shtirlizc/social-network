@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { compose } from "redux";
 
 import { addMessage, typeNewMessage } from "../../redux/reducers/dialogs";
 import TextField from "../../components/TextField";
@@ -77,9 +78,10 @@ Dialogs.propTypes = {
   handleUpdateNewMessage: PropTypes.func.isRequired,
 };
 
-const DialogsContainer = connect(mapStateToProps, {
-  handleSubmitMessage: addMessage,
-  handleUpdateNewMessage: typeNewMessage,
-})(withAuthRedirect(Dialogs));
-
-export default DialogsContainer;
+export default compose(
+  connect(mapStateToProps, {
+    handleSubmitMessage: addMessage,
+    handleUpdateNewMessage: typeNewMessage,
+  }),
+  withAuthRedirect,
+)(Dialogs);

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { compose } from "redux";
 
 import { follow, unFollow, getUsers } from "../../redux/reducers/users";
 import Users from "./Users";
@@ -70,8 +71,11 @@ UsersContainer.propTypes = {
   handleGetUsers: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, {
-  handleFollow: follow,
-  handleUnFollow: unFollow,
-  handleGetUsers: getUsers,
-})(withAuthRedirect(UsersContainer));
+export default compose(
+  connect(mapStateToProps, {
+    handleFollow: follow,
+    handleUnFollow: unFollow,
+    handleGetUsers: getUsers,
+  }),
+  withAuthRedirect,
+)(UsersContainer);
