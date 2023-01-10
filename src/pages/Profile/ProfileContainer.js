@@ -7,7 +7,7 @@ import Profile from "./Profile";
 import { getProfile } from "../../redux/reducers/profile";
 import Preloader from "../../components/Preloader";
 import { matchType } from "../../types";
-import withRedirect from "../../hoc/withRedirect";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -42,4 +42,4 @@ ProfileContainer.propTypes = {
 
 export default connect(mapStateToProps, {
   handleGetProfile: getProfile,
-})(withRouter(withRedirect(ProfileContainer)));
+})(withRouter(withAuthRedirect(ProfileContainer)));

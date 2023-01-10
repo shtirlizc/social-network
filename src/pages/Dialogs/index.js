@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 import DialogItem from "./DialogItem";
 import Message from "./Message";
 import { friendItem, postItem } from "../../types";
-import withRedirect from "../../hoc/withRedirect";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 import s from "./Dialogs.module.scss";
 
@@ -80,6 +80,6 @@ Dialogs.propTypes = {
 const DialogsContainer = connect(mapStateToProps, {
   handleSubmitMessage: addMessage,
   handleUpdateNewMessage: typeNewMessage,
-})(withRedirect(Dialogs));
+})(withAuthRedirect(Dialogs));
 
 export default DialogsContainer;

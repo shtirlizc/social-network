@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-const withRedirect = (WrappedComponent) => {
+const withAuthRedirect = (WrappedComponent) => {
   const RedirectHOC = (props) => {
     const { isAuth } = props;
 
@@ -26,4 +26,4 @@ const withRedirect = (WrappedComponent) => {
   return connect(mapStateToProps)(RedirectHOC);
 };
 
-export default withRedirect;
+export default withAuthRedirect;
