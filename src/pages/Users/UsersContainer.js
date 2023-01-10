@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
 
 import { follow, unFollow, getUsers } from "../../redux/reducers/users";
 import Users from "./Users";
 import Preloader from "../../components/Preloader";
 import { usersItem } from "../../types";
+import withRedirect from "../../hoc/withRedirect";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -31,12 +31,7 @@ class UsersContainer extends React.Component {
       followingInProgress,
       handleFollow,
       handleUnFollow,
-      isAuth,
     } = this.props;
-
-    if (!isAuth) {
-      return <Redirect to="/login" />;
-    }
 
     return isFetching ? (
       <Preloader />
@@ -61,7 +56,6 @@ const mapStateToProps = (state) => ({
   currentPage: state.usersPage.currentPage,
   pageSize: state.usersPage.pageSize,
   followingInProgress: state.usersPage.followingInProgress,
-  isAuth: state.authUser.isAuth,
 });
 
 UsersContainer.propTypes = {
@@ -71,7 +65,6 @@ UsersContainer.propTypes = {
   currentPage: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   followingInProgress: PropTypes.arrayOf(PropTypes.number).isRequired,
-  isAuth: PropTypes.bool.isRequired,
   handleFollow: PropTypes.func.isRequired,
   handleUnFollow: PropTypes.func.isRequired,
   handleGetUsers: PropTypes.func.isRequired,
@@ -81,4 +74,4 @@ export default connect(mapStateToProps, {
   handleFollow: follow,
   handleUnFollow: unFollow,
   handleGetUsers: getUsers,
-})(UsersContainer);
+})(withRedirect(UsersContainer));

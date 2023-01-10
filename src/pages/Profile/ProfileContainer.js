@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import Profile from "./Profile";
 import { getProfile } from "../../redux/reducers/profile";
 import Preloader from "../../components/Preloader";
 import { matchType } from "../../types";
+import withRedirect from "../../hoc/withRedirect";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -19,11 +20,7 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-    const { isFetching, isAuth } = this.props;
-
-    if (!isAuth) {
-      return <Redirect to="/login" />;
-    }
+    const { isFetching } = this.props;
 
     if (isFetching) {
       return <Preloader />;
@@ -35,16 +32,14 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
   isFetching: state.profilePage.isFetching,
-  isAuth: state.authUser.isAuth,
 });
 
 ProfileContainer.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  isAuth: PropTypes.bool.isRequired,
   handleGetProfile: PropTypes.func.isRequired,
   match: PropTypes.exact(matchType).isRequired,
 };
 
 export default connect(mapStateToProps, {
   handleGetProfile: getProfile,
-})(withRouter(ProfileContainer));
+})(withRouter(withRedirect(ProfileContainer)));

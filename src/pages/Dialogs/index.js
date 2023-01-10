@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
 
 import { addMessage, typeNewMessage } from "../../redux/reducers/dialogs";
 import TextField from "../../components/TextField";
@@ -9,6 +8,7 @@ import Button from "../../components/Button";
 import DialogItem from "./DialogItem";
 import Message from "./Message";
 import { friendItem, postItem } from "../../types";
+import withRedirect from "../../hoc/withRedirect";
 
 import s from "./Dialogs.module.scss";
 
@@ -18,12 +18,7 @@ const Dialogs = ({
   newMessageText,
   handleSubmitMessage,
   handleUpdateNewMessage,
-  isAuth,
 }) => {
-  if (!isAuth) {
-    return <Redirect to="/login" />;
-  }
-
   const onSubmitMessage = (event) => {
     event.preventDefault();
     handleSubmitMessage();
@@ -65,13 +60,12 @@ const Dialogs = ({
 };
 
 const mapStateToProps = (state) => {
-  const { friends, dialogsPage, authUser } = state;
+  const { friends, dialogsPage } = state;
 
   return {
     friends,
     messages: dialogsPage.messages,
     newMessageText: dialogsPage.newMessageText,
-    isAuth: authUser.isAuth,
   };
 };
 
@@ -79,7 +73,6 @@ Dialogs.propTypes = {
   friends: PropTypes.arrayOf(PropTypes.exact(friendItem)).isRequired,
   messages: PropTypes.arrayOf(PropTypes.exact(postItem)).isRequired,
   newMessageText: PropTypes.string.isRequired,
-  isAuth: PropTypes.bool.isRequired,
   handleSubmitMessage: PropTypes.func.isRequired,
   handleUpdateNewMessage: PropTypes.func.isRequired,
 };
@@ -87,6 +80,6 @@ Dialogs.propTypes = {
 const DialogsContainer = connect(mapStateToProps, {
   handleSubmitMessage: addMessage,
   handleUpdateNewMessage: typeNewMessage,
-})(Dialogs);
+})(withRedirect(Dialogs));
 
 export default DialogsContainer;
