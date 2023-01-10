@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { follow, unfollow, toggleFollowingInProgress, getUsers } from "../../redux/reducers/users";
+import { follow, unFollow, getUsers } from "../../redux/reducers/users";
 import Users from "./Users";
 import Preloader from "../../components/Preloader";
 import { usersItem } from "../../types";
@@ -13,18 +13,6 @@ class UsersContainer extends React.Component {
 
     handleGetUsers(pageSize, currentPage);
   }
-
-  onFollow = (userId) => {
-    const { handleFollow } = this.props;
-
-    handleFollow(userId);
-  };
-
-  onUnfollow = (userId) => {
-    const { handleUnfollow } = this.props;
-
-    handleUnfollow(userId);
-  };
 
   onPageClick = (pageNumber) => {
     const { pageSize, handleGetUsers } = this.props;
@@ -40,7 +28,8 @@ class UsersContainer extends React.Component {
       currentPage,
       pageSize,
       followingInProgress,
-      handleToggleFollowingInProgress,
+      handleFollow,
+      handleUnFollow,
     } = this.props;
 
     return isFetching ? (
@@ -51,10 +40,9 @@ class UsersContainer extends React.Component {
         currentPage={currentPage}
         pageCount={Math.ceil(totalUsersCount / pageSize)}
         onPageClick={this.onPageClick}
-        onFollow={this.onFollow}
-        onUnfollow={this.onUnfollow}
+        onFollow={handleFollow}
+        onUnFollow={handleUnFollow}
         followingInProgress={followingInProgress}
-        handleToggleFollowingInProgress={handleToggleFollowingInProgress}
       />
     );
   }
@@ -77,14 +65,12 @@ UsersContainer.propTypes = {
   pageSize: PropTypes.number.isRequired,
   followingInProgress: PropTypes.arrayOf(PropTypes.number).isRequired,
   handleFollow: PropTypes.func.isRequired,
-  handleUnfollow: PropTypes.func.isRequired,
+  handleUnFollow: PropTypes.func.isRequired,
   handleGetUsers: PropTypes.func.isRequired,
-  handleToggleFollowingInProgress: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, {
   handleFollow: follow,
-  handleUnfollow: unfollow,
-  handleToggleFollowingInProgress: toggleFollowingInProgress,
+  handleUnFollow: unFollow,
   handleGetUsers: getUsers,
 })(UsersContainer);

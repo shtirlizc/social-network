@@ -1,3 +1,5 @@
+import API from "../../api";
+
 const PREFIX = "AUTH_";
 
 const SET_USER = `${PREFIX}SET_USER`;
@@ -35,6 +37,8 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
+// action creators
+
 export const setAuthUser = ({ id, email, login }) => ({
   type: SET_USER,
   payload: {
@@ -59,5 +63,22 @@ export const setProfile = (profileData) => ({
     profileData,
   },
 });
+
+// thunk creators
+
+export const getAuthMe = () => async (dispatch) => {
+  dispatch(setIsFetching(true));
+
+  const authMeData = await API.authMe.getAuthMe();
+  if (authMeData.resultCode === 0) {
+    const { id, email, login } = authMeData.data;
+    dispatch(setAuthUser({ id, email, login }));
+
+    const getProfileData = await API.profile.getProfile(id);
+    dispatch(setProfile(getProfileData));
+  }
+
+  dispatch(setIsFetching(false));
+};
 
 export default authReducer;

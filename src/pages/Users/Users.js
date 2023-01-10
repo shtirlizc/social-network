@@ -6,7 +6,6 @@ import Button from "../../components/Button";
 import Avatar from "./assets/avatar.jpeg";
 import Pagination from "../../components/Pagination";
 import { usersItem } from "../../types";
-import API from "../../api";
 
 import s from "./Users.module.scss";
 
@@ -16,28 +15,15 @@ const Users = ({
   pageCount,
   onPageClick,
   onFollow,
-  onUnfollow,
+  onUnFollow,
   followingInProgress,
-  handleToggleFollowingInProgress,
 }) => {
   const handleFollow = (userId) => {
-    handleToggleFollowingInProgress(true, userId);
-    API.follow.follow(userId).then((data) => {
-      if (data.resultCode === 0) {
-        onFollow(userId);
-        handleToggleFollowingInProgress(false, userId);
-      }
-    });
+    onFollow(userId);
   };
 
   const handleUnFollow = (userId) => {
-    handleToggleFollowingInProgress(true, userId);
-    API.follow.unFollow(userId).then((data) => {
-      if (data.resultCode === 0) {
-        onUnfollow(userId);
-        handleToggleFollowingInProgress(false, userId);
-      }
-    });
+    onUnFollow(userId);
   };
 
   const userView = users.map(({ id, photos, name, status, followed }) => (
@@ -96,8 +82,7 @@ Users.propTypes = {
   followingInProgress: PropTypes.arrayOf(PropTypes.number).isRequired,
   onPageClick: PropTypes.func.isRequired,
   onFollow: PropTypes.func.isRequired,
-  onUnfollow: PropTypes.func.isRequired,
-  handleToggleFollowingInProgress: PropTypes.func.isRequired,
+  onUnFollow: PropTypes.func.isRequired,
 };
 
 export default Users;

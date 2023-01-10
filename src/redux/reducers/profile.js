@@ -1,3 +1,5 @@
+import API from "../../api";
+
 const PREFIX = "PROFILE_";
 
 const ADD_POST = `${PREFIX}ADD_POST`;
@@ -67,6 +69,8 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
+// action creators
+
 export const addPost = () => ({
   type: ADD_POST,
 });
@@ -88,5 +92,16 @@ export const setIsFetching = (isFetching) => ({
     isFetching,
   },
 });
+
+// thunk creators
+
+export const getProfile = (userId) => (dispatch) => {
+  dispatch(setIsFetching(true));
+
+  API.profile.getProfile(userId).then((data) => {
+    dispatch(setProfile(data));
+    dispatch(setIsFetching(false));
+  });
+};
 
 export default profileReducer;

@@ -4,23 +4,17 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
 import Profile from "./Profile";
-import { setIsFetching, setProfile } from "../../redux/reducers/profile";
+import { getProfile } from "../../redux/reducers/profile";
 import Preloader from "../../components/Preloader";
 import { matchType } from "../../types";
-import API from "../../api";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    const { handleSetIsFetching, handleSetProfile, match } = this.props;
+    const { handleGetProfile, match } = this.props;
     const { userId } = match.params;
 
     if (userId) {
-      handleSetIsFetching(true);
-
-      API.profile.getProfile(userId).then((data) => {
-        handleSetProfile(data);
-        handleSetIsFetching(false);
-      });
+      handleGetProfile(userId);
     }
   }
 
@@ -41,12 +35,10 @@ const mapStateToProps = (state) => ({
 
 ProfileContainer.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  handleSetProfile: PropTypes.func.isRequired,
-  handleSetIsFetching: PropTypes.func.isRequired,
+  handleGetProfile: PropTypes.func.isRequired,
   match: PropTypes.exact(matchType).isRequired,
 };
 
 export default connect(mapStateToProps, {
-  handleSetProfile: setProfile,
-  handleSetIsFetching: setIsFetching,
+  handleGetProfile: getProfile,
 })(withRouter(ProfileContainer));
