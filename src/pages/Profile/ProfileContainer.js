@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 import Profile from "./Profile";
 import { getProfile } from "../../redux/reducers/profile";
@@ -19,7 +19,11 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-    const { isFetching } = this.props;
+    const { isFetching, isAuth } = this.props;
+
+    if (!isAuth) {
+      return <Redirect to="/login" />;
+    }
 
     if (isFetching) {
       return <Preloader />;
@@ -31,10 +35,12 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
   isFetching: state.profilePage.isFetching,
+  isAuth: state.authUser.isAuth,
 });
 
 ProfileContainer.propTypes = {
   isFetching: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool.isRequired,
   handleGetProfile: PropTypes.func.isRequired,
   match: PropTypes.exact(matchType).isRequired,
 };
