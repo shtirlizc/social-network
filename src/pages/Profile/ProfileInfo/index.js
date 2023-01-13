@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import Avatar from "../../Users/assets/avatar.jpeg";
 import { profileType } from "../../../types";
+import ProfileStatus from "./ProfileStatus";
 
 import s from "./ProfileInfo.module.scss";
 
@@ -27,6 +28,7 @@ const ProfileInfo = ({ profile }) => {
 
         <div className={s.profileDesc}>
           <h3 className={s.profileName}>{fullName}</h3>
+          <ProfileStatus />
           <dl className={s.profileList}>
             {aboutMe && (
               <>

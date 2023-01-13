@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 
 import ProfileInfo from "./ProfileInfo";
 import NewPost from "./NewPost";
@@ -56,4 +58,4 @@ Profile.propTypes = {
   match: PropTypes.exact(matchType).isRequired,
 };
 
-export default connect(mapStateToProps)(Profile);
+export default compose(connect(mapStateToProps), withRouter)(Profile);

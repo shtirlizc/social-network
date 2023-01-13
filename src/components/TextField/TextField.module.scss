@@ -1,12 +1,17 @@
 .root {
   border: 1px solid var(--secondary);
   background-color: var(--bg-color);
-  min-height: 120px;
+  height: 40px;
   width: 100%;
   padding: 10px;
   font-size: 16px;
   color: var(--black-color);
   transition: border var(--transition);
+
+  &.textarea {
+    height: auto;
+    min-height: 120px;
+  }
 
   &:focus-visible {
     outline: none;

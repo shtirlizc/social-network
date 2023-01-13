@@ -1,0 +1,15 @@
+.root {
+  margin: 8px 0;
+
+  .fieldWrapper {
+    min-width: 240px;
+    max-width: 50%;
+  }
+
+  .turnOffStatus {
+    border: none;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
